@@ -32,6 +32,7 @@ function configureStandaloneCollections(){
  collectionDisplay.hiddenSaved.clear();collectionDisplay.hiddenHistory.clear();
  collectionDisplay.savedFallback=standaloneState==='typical'?standaloneSavedFixtures:[];
  collectionDisplay.historyFallback=standaloneState==='typical'?standaloneHistoryFixtures:[];
+ if(collectionDisplay.historyEdited)seedHistoryFallback();
  if(standaloneState==='first'||standaloneState==='none'){
   collectionDisplay.hiddenSaved=new Set(savedColors.map(colorKey));collectionDisplay.hiddenHistory=new Set(historyColors.map(colorKey));
  }

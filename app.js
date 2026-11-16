@@ -6,6 +6,7 @@ let gradientStop=1,gradientPicker=false;
 let activeScreen='palette',pickerHSV={h:51,s:0,v:1};
 const savedColors=[];
 const historyColors=[];
+const seededHistoryFixtures=new Set();
 const pickerHistoryPinned=new Set();
 // Scenario fixtures seed a collection on its first edit, preserving session data.
 const collectionDisplay={savedFallback:[],historyFallback:[],hiddenSaved:new Set(),hiddenHistory:new Set(),savedEdited:false,historyEdited:false};
@@ -70,9 +71,14 @@ $('#color-tooltip').onfocusout=event=>{if(!$('#color-tooltip').contains(event.re
 $('#tooltip-pin').onclick=event=>{event.stopPropagation();if(tooltipValue&&tooltipValue.color!==null){clearTimeout(tooltipHideTimer);toggleSaved({...tooltipValue});hideTooltip();}};
 window.addEventListener('resize',hideTooltip);
 window.addEventListener('scroll',hideTooltip,true);
+function seedHistoryFallback(){
+  const additions=collectionDisplay.historyFallback.filter(value=>!seededHistoryFixtures.has(colorKey(value))&&!historyColors.some(item=>colorKey(item)===colorKey(value)));
+  collectionDisplay.historyFallback.forEach(value=>seededHistoryFixtures.add(colorKey(value)));
+  historyColors.push(...structuredClone(additions));
+}
 function remember(value){
   if(value.color===null)return;
-  if(!historyColors.length&&!collectionDisplay.historyEdited)historyColors.push(...structuredClone(getHistoryColors()));
+  if(!historyColors.length&&!collectionDisplay.historyEdited)seedHistoryFallback();
   collectionDisplay.historyEdited=true;collectionDisplay.hiddenHistory.delete(colorKey(value));
   const index=historyColors.findIndex(item=>colorKey(item)===colorKey(value));
   if(index>=0)historyColors.splice(index,1);

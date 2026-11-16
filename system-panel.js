@@ -68,6 +68,7 @@ function selectSystemState(state){
   collectionDisplay.historyFallback=state==='first'?[]:state==='max'?systemMaximumHistoryFixtures:systemHistoryFixtures;
   if(state==='first'||state==='history')collectionDisplay.hiddenSaved=new Set(savedColors.map(colorKey));
   if(state==='first')collectionDisplay.hiddenHistory=new Set(historyColors.map(colorKey));
+  if(collectionDisplay.historyEdited)seedHistoryFallback();
  }
  snapshot=structuredClone(applied);
  if(state==='photo'||state==='video'){
