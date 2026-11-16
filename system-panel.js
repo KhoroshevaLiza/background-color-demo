@@ -51,7 +51,12 @@ const systemMaximumHistoryFixtures=[
  systemGreenGradient,fixtureColor('#5191DC'),fixtureColor('#BBD3F6'),fixtureColor('#FF1756',{alpha:55}),fixtureColor('#EEEBFF',{texture:6,swatchTextureSize:'193.5px 28px'}),systemWarmGradient,
  fixtureColor('#1DA11D'),fixtureColor('#6AD77D'),fixtureColor('#B3A5FB',{alpha:50}),fixtureColor('#3563E9'),fixtureColor('#21856B'),fixtureColor('#9454C4')
 ];
-function refreshSystemCollections(){renderSaved();syncPin();if(activeScreen==='picker')renderPickerHistory();document.dispatchEvent(new Event('color-collection-change'));}
+function refreshSystemCollections(){renderSaved();syncPin();if(activeScreen==='picker')renderPickerHistory();renderGradientHistory();document.dispatchEvent(new Event('color-collection-change'));}
+function hideFirstEntryCollections(){
+ collectionDisplay.savedFallback=[];collectionDisplay.historyFallback=[];
+ collectionDisplay.hiddenSaved=new Set(savedColors.map(colorKey));
+ collectionDisplay.hiddenHistory=new Set(historyColors.map(colorKey));
+}
 function selectSystemState(state){
  if(state==='video'&&!mediaVideoAllowed)return;
  if(activeScreen!=='media'&&draft.mode!=='media')systemColorDraft=structuredClone(draft);
@@ -89,6 +94,7 @@ function setSystemMediaMode(allowVideo){
 systemPanel.querySelectorAll('[data-system-state]').forEach(button=>button.onclick=()=>selectSystemState(button.dataset.systemState));
 systemPanel.querySelectorAll('[data-media-mode]').forEach(button=>button.onclick=()=>setSystemMediaMode(button.dataset.mediaMode==='video'));
 function selectSystemType(type){
+ const returningToBackground=type==='background'&&systemPanel.querySelector('[data-system-type="background"]').getAttribute('aria-checked')!=='true';
  const returningFromTrigger=type==='background'&&$('.editor').classList.contains('trigger-mode');
  if(typeof renderTriggerDemo==='function')renderTriggerDemo(type==='trigger');
  if(typeof renderColorDemo==='function')renderColorDemo(type==='color');
@@ -96,6 +102,9 @@ function selectSystemType(type){
  systemPanel.querySelectorAll('[data-system-type]').forEach(button=>button.setAttribute('aria-checked',String(button.dataset.systemType===type)));
  systemPanel.querySelectorAll('[data-system-section]').forEach(section=>section.hidden=section.dataset.systemSection!==type);
  systemPanel.querySelector('.system-contacts').hidden=type==='trigger';
+ if(returningToBackground&&systemState==='first'){
+  hideFirstEntryCollections();$('#mine-menu').hidden=true;hideTooltip();refreshSystemCollections();
+ }
 }
 systemPanel.querySelectorAll('[data-system-type]').forEach(button=>button.onclick=()=>selectSystemType(button.dataset.systemType));
 selectSystemType('background');
