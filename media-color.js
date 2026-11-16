@@ -1,5 +1,6 @@
 let mediaColorValue=null,mediaColorSnapshot=null,mediaColorHSV=null;
 let colorDialogOptions=null;
+const colorDialogHistoryPinned=new Set();
 // One value editor shared by image styles, gradient stops and future color fields.
 const isPlainColor=value=>!!value.color&&!value.gradient&&!value.texture&&!Number(value.blur||0)&&value.mode!=='media';
 const mediaColorDialog=document.createElement('section');mediaColorDialog.id='media-color-dialog';mediaColorDialog.className='dialog';mediaColorDialog.hidden=true;mediaColorDialog.setAttribute('role','dialog');mediaColorDialog.setAttribute('aria-label','Цвет градиента картинки');
@@ -15,6 +16,8 @@ const colorHistory=document.createElement('div');colorHistory.id='color-dialog-h
 colorHistory.innerHTML='<div class="color-group-title">Ранее использовались</div><div id="color-dialog-history-colors" class="palette"></div>';
 $('#media-color-picker').append(colorHistory);
 function openColorDialog({value,anchor,onConfirm,title='Цвет',...options}){
+  if(typeof finishColorHeadingEdit==='function')finishColorHeadingEdit();
+  colorDialogHistoryPinned.clear();
   hideTooltip();$('#mine-menu').hidden=true;
   colorDialogOptions={...options,anchor,onConfirm};
   (options.host||$('#dialog')).append(mediaColorDialog);
@@ -26,6 +29,7 @@ function openColorDialog({value,anchor,onConfirm,title='Цвет',...options}){
   let variableName=mediaColorDialog.querySelector('.color-variable-name');
   if(!variableName){variableName=document.createElement('span');variableName.className='color-variable-name';mediaColorDialog.querySelector('.title').after(variableName);}
   variableName.textContent=options.variable||'';variableName.hidden=!options.variable;
+  if(typeof configureColorHeading==='function')configureColorHeading(options);
   $('#media-color-palette-card').hidden=!!options.pickerOnly;$('#media-color-picker').hidden=!options.pickerOnly;
   const palette=$('#media-color-palette');palette.replaceChildren();
   for(const color of [...options.allowNone?[null]:[],...(options.palette||colors.filter(Boolean))]){const button=document.createElement('button');button.className='swatch';button.classList.toggle('no-color',color===null);button.style.background=color||'#fff';attachTooltip(button,{color,alpha:100});button.onclick=()=>{mediaColorValue={color,alpha:100};saveMediaColor();};palette.append(button);}
@@ -47,6 +51,7 @@ function positionColorDialog(){
   placeMediaPopup(mediaColorDialog,colorDialogOptions.anchor,{left:-16,top:-56,width:366,height:mediaColorDialog.offsetHeight});
 }
 function closeColorDialog(){
+  if(typeof finishColorHeadingEdit==='function')finishColorHeadingEdit();
   mediaColorDialog.hidden=true;hideTooltip();
   if($('#mine-menu').parentElement===mediaColorDialog){$('#mine-menu').hidden=true;$('#dialog').append($('#mine-menu'));mineContext=null;}
   const anchor=colorDialogOptions?.anchor,onClose=colorDialogOptions?.onClose;colorDialogOptions=null;
@@ -54,12 +59,15 @@ function closeColorDialog(){
   if(onClose)onClose();
 }
 function selectDialogColor(value){mediaColorValue={color:value.color,alpha:value.alpha};saveMediaColor();}
+function retainColorDialogHistory(value){
+  if(!mediaColorDialog.hidden&&!$('#media-color-picker').hidden&&!colorDialogOptions?.hideCollections&&isPlainColor(value)&&getHistoryColors().some(item=>colorKey(item)===colorKey(value)))colorDialogHistoryPinned.add(colorKey(value));
+}
 function renderColorCollections(){
   if(mediaColorDialog.hidden)return;
   const values=getSavedColors().filter(isPlainColor),list=$('#color-dialog-mine-colors');list.replaceChildren();colorMine.hidden=values.length===0;
   for(const value of values.slice(0,19))list.append(savedSwatch(value,selectDialogColor));
   if(values.length){const more=document.createElement('button');more.className='mine-more';more.setAttribute('aria-label','Все мои цвета');more.title='Все мои цвета';more.onclick=()=>{if(!$('#mine-menu').hidden&&$('#mine-menu').parentElement===mediaColorDialog)$('#mine-menu').hidden=true;else openMine({host:mediaColorDialog,filter:isPlainColor,select:selectDialogColor});};list.append(more);}
-  const history=getHistoryColors().filter(value=>isPlainColor(value)&&!isSaved(value));
+  const history=getHistoryColors().filter(value=>isPlainColor(value)&&(!isSaved(value)||colorDialogHistoryPinned.has(colorKey(value))));
   colorHistory.hidden=history.length===0;
   if(colorDialogOptions?.hideCollections){colorMine.hidden=true;colorHistory.hidden=true;}
   $('#color-dialog-history-colors').replaceChildren(...history.map(value=>savedSwatch(value,selectDialogColor)));

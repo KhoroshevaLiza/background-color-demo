@@ -1,0 +1,8 @@
+.demo-heading{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:1376px;margin:0 auto;padding:40px 0 16px;border-radius:8px;background:#fff}
+.demo-heading-title{display:flex;align-items:center;gap:12px;width:100%;color:#000;text-decoration:none;line-height:normal}
+.demo-heading-title img{display:block;flex:none}
+.demo-heading-title h1,.demo-heading-version{margin:0;font-size:24px;font-weight:600;line-height:29px;letter-spacing:-.3384px;white-space:nowrap}
+.demo-heading-version{color:#656c87}
+.demo-heading p{width:100%;margin:0;padding-left:36px;font-size:15px;font-weight:400;line-height:18px;letter-spacing:-.2115px}
+.demo-heading-status{color:#656c87}
+.demo-heading-description{color:#000}

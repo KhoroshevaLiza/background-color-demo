@@ -27,8 +27,7 @@
 .system-contact{padding:6px;display:flex;align-items:flex-start;gap:4px;background:#fff;border-radius:8px;color:#000}
 .system-contact>img{flex:none;margin-top:1px}
 .system-contact-details{display:flex;flex-direction:column;gap:4px;min-width:0;padding-bottom:2px}
-.system-links{display:flex;align-items:center;gap:6px;color:#313e78}
-.system-links>img{margin-left:10px}
 .system-link{color:#313e78;text-decoration:underline;cursor:default}
+a.system-link{cursor:pointer}
 .system-radio[hidden],.finder-files button[hidden]{display:none}
 .system-panel [hidden]{display:none}

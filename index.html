@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Выбор фона — демо</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="photo-only.css">
 <link rel="stylesheet" href="textures.css">
 <link rel="stylesheet" href="media.css">
 <link rel="stylesheet" href="media-viewer.css">
@@ -12,9 +13,17 @@
 <link rel="stylesheet" href="trigger-demo.css">
 <link rel="stylesheet" href="trigger-fills.css">
 <link rel="stylesheet" href="color-demo.css">
+<link rel="stylesheet" href="demo-heading.css">
+<section class="demo-heading" aria-label="Описание демо">
+  <a class="demo-heading-title" href="http://axure.tensor.ru/StandardsV8/guidelines.html" target="_blank" rel="noopener noreferrer"><img src="assets/demo-heading-back.svg" alt=""><h1>Выбор фона и цвета</h1><span class="demo-heading-version">26.6100</span></a>
+  <p class="demo-heading-status">На согласовании. Добавлена загрузка видео и выбор размытия у цвета</p>
+  <p class="demo-heading-description">Компонент позволяет настроить фон с помощью выбора цвета, градиента, картинки, видео или цвет.</p>
+</section>
 <main class="editor" aria-label="Редактор страницы">
   <img class="editor-image" src="assets/editor.png" alt="">
   <img class="editor-image editor-detail" src="assets/editor-original.png" alt="Панель инструментов секции">
+  <img class="photo-only-environment" src="assets/photo-only-environment.png" alt="" aria-hidden="true">
+  <div class="photo-only-header-content" aria-hidden="true"><i class="header-avatar"></i><i class="header-title"></i><i class="header-subtitle"></i><i class="header-circle circle-one"></i><i class="header-circle circle-two"></i><i class="header-circle circle-three"></i></div>
   <div class="section-outline" aria-hidden="true"></div>
   <div class="background-clip"><div id="background-surface"><div id="background" class="section-background"></div><div id="applied-media" hidden></div><div id="background-texture" class="background-texture" aria-hidden="true"></div></div></div>
   <div class="section-content-overlay" aria-hidden="true"></div>
@@ -66,6 +75,7 @@
 <script src="media.js"></script>
 <script src="media-settings.js"></script>
 <script src="media-color.js"></script>
+<script src="color-heading.js"></script>
 <script src="media-viewer.js"></script>
 <script src="video-viewer.js"></script>
 <script src="video-preview.js"></script>

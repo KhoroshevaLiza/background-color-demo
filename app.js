@@ -1,11 +1,13 @@
 const $=s=>document.querySelector(s);
 const colors=[null,'#999999','#E0564C','#E59545','#E5CB45','#009918','#29B5CF','#326194','#4C3294','#943288','#943253','#EDEDED','#FFE5E3','#FFF1E3','#FFFBE3','#E3FFE8','#E3FAFF','#E3F1FF','#EAE3FF','#FFE3FA','#FFE3EC'];
+const photoOnlyColors=[null,'#CCCCCC','#FF7067','#FFB266','#FFE566','#99BF9F','#70C0CF','#618BB8','#8B77C0','#BF82B8'];
 let applied={color:'#FFFBE3',alpha:100},draft={...applied},snapshot={...applied};
 let gradientStop=1,gradientPicker=false;
 let activeScreen='palette',pickerHSV={h:51,s:0,v:1};
 const savedColors=[];
 const historyColors=[];
-// Scenario fixtures are a view fallback, never a replacement for session data.
+const pickerHistoryPinned=new Set();
+// Scenario fixtures seed a collection on its first edit, preserving session data.
 const collectionDisplay={savedFallback:[],historyFallback:[],hiddenSaved:new Set(),hiddenHistory:new Set(),savedEdited:false,historyEdited:false};
 const getSavedColors=()=>((savedColors.length||collectionDisplay.savedEdited)?savedColors:collectionDisplay.savedFallback).filter(value=>!collectionDisplay.hiddenSaved.has(colorKey(value)));
 const getHistoryColors=()=>((historyColors.length||collectionDisplay.historyEdited)?historyColors:collectionDisplay.historyFallback).filter(value=>!collectionDisplay.hiddenHistory.has(colorKey(value)));
@@ -70,6 +72,7 @@ window.addEventListener('resize',hideTooltip);
 window.addEventListener('scroll',hideTooltip,true);
 function remember(value){
   if(value.color===null)return;
+  if(!historyColors.length&&!collectionDisplay.historyEdited)historyColors.push(...structuredClone(getHistoryColors()));
   collectionDisplay.historyEdited=true;collectionDisplay.hiddenHistory.delete(colorKey(value));
   const index=historyColors.findIndex(item=>colorKey(item)===colorKey(value));
   if(index>=0)historyColors.splice(index,1);
@@ -87,7 +90,11 @@ function openMine(context=null){
 function toggleSaved(value){
   if(value.color===null)return;
   const pinned=isSaved(value);
-  if(pinned&&!savedColors.length&&!collectionDisplay.savedEdited)savedColors.push(...getSavedColors().map(value=>({...value})));
+  if(!pinned){
+    if(activeScreen==='picker'&&!gradientPicker&&!$('#dialog').hidden&&getHistoryColors().some(item=>colorKey(item)===colorKey(value)))pickerHistoryPinned.add(colorKey(value));
+    if(typeof retainColorDialogHistory==='function')retainColorDialogHistory(value);
+  }
+  if(!savedColors.length&&!collectionDisplay.savedEdited)savedColors.push(...structuredClone(getSavedColors()));
   collectionDisplay.savedEdited=true;collectionDisplay.hiddenSaved.delete(colorKey(value));
   const index=savedColors.findIndex(item=>colorKey(item)===colorKey(value));
   if(!pinned){
@@ -216,6 +223,10 @@ function updatePreview(){
   if(activeScreen==='gradient-editor')renderGradientEditor();
 }
 function renderApplied(){
+  const baseColor=applied.gradient?.colors[0]||applied.color||'#F8F8F8';
+  const channels=baseColor.slice(1).match(/../g)?.map(value=>parseInt(value,16))||[248,248,248];
+  const lightness=(channels[0]*.2126+channels[1]*.7152+channels[2]*.0722)/255;
+  $('.photo-only-header-content').style.setProperty('--header-skeleton',applied.mode==='media'||lightness<.8?'rgba(255,255,255,.35)':'rgba(51,51,51,.05)');
   if(typeof renderAppliedMedia==='function'&&renderAppliedMedia())return;
   const empty=applied.color===null,bg=$('#background');
   bg.style.display=empty?'none':'block';
@@ -236,8 +247,12 @@ function commit(){
   $('#mine-menu').hidden=true;
   $('#effects-menu').hidden=true;
 }
-for(const color of colors){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit();};$('#palette').append(b);}
-$('#apply').onclick=commit;$('#close').onclick=()=>{draft={...snapshot};update();$('#dialog').hidden=true;};$('#reset').onclick=()=>{draft={...snapshot};if((activeScreen==='gradient-editor'&&!draft.gradient)||(activeScreen==='media'&&!draft.media))setScreen('palette');update();};$('#open').onclick=()=>{snapshot={...applied};draft={...applied};setScreen(applied.mode==='media'?'media':'palette');update();$('#dialog').hidden=false;};
+function renderBackgroundPalette(values=colors){
+  $('#palette').replaceChildren();
+  for(const color of values){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit();};$('#palette').append(b);}
+}
+renderBackgroundPalette();
+$('#apply').onclick=commit;$('#close').onclick=()=>{draft={...snapshot};update();$('#dialog').hidden=true;};$('#reset').onclick=()=>{draft={...snapshot};if((activeScreen==='gradient-editor'&&!draft.gradient)||(activeScreen==='media'&&!draft.media))setScreen('palette');update();};$('#open').onclick=()=>{pickerHistoryPinned.clear();snapshot={...applied};draft={...applied};setScreen(applied.mode==='media'?'media':'palette');update();$('#dialog').hidden=false;};
 $('#hex').onchange=e=>{const v=e.target.value.replace(/[^a-f0-9]/gi,'');if(v)setEditingColor('#'+v.repeat(6).slice(0,6).toUpperCase(),editingColor().alpha);update();};$('#alpha').oninput=e=>{setEditingColor(editingColor().color,Math.max(0,Math.min(100,Number(e.target.value))));updatePreview();};
 $('#drag').onpointerdown=e=>{if(e.target.closest('button,input'))return;const d=$('#dialog'),r=d.getBoundingClientRect(),base=$('.editor').getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;d.style.right='auto';$('#drag').setPointerCapture(e.pointerId);$('#drag').onpointermove=m=>{d.style.left=Math.max(0,Math.min(658,m.clientX-base.left-dx))+'px';d.style.top=Math.max(0,Math.min(712,m.clientY-base.top-dy))+'px';};$('#drag').onpointerup=()=>{$('#drag').onpointermove=null;};};
 function hexToHSV(hex){
@@ -274,7 +289,7 @@ function renderPicker(){
   $('#opacity-picker').setAttribute('aria-valuenow',String(editing.alpha));
 }
 function renderPickerHistory(){
-  const entries=getHistoryColors().filter(value=>!value.gradient&&!isSaved(value));
+  const entries=getHistoryColors().filter(value=>!value.gradient&&(!isSaved(value)||pickerHistoryPinned.has(colorKey(value))));
   $('#picker-history').hidden=gradientPicker||entries.length===0;
   $('#picker-history-colors').replaceChildren();
   for(const value of entries)$('#picker-history-colors').append(savedSwatch(value));

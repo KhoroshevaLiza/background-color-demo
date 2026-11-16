@@ -24,11 +24,11 @@ systemPanel.innerHTML=`
   <h2 class="system-heading">Произвольный цвет с выбором из готовых</h2>
   <div class="system-white"><button class="system-radio" role="radio" data-color-state="first" aria-checked="true">Первый вход</button><button class="system-radio" role="radio" data-color-state="typical" aria-checked="false">Типовое</button></div>
   <div class="system-caption">Настройки</div><div class="system-white"><button class="system-radio" role="radio" data-color-state="none" data-color-none aria-checked="false">С элементом "Без цвета"</button></div>
-  <h2 class="system-heading">Настройка цвета в палитре</h2><div class="system-white"><button class="system-radio" role="radio" data-color-state="primary" aria-checked="false">Основной цвет</button><button class="system-radio" role="radio" data-color-state="other" aria-checked="false">Другой цвет</button></div>
+  <h2 class="system-heading">Настройка цвета в палитре</h2><div class="system-white"><button class="system-radio" role="radio" data-color-state="primary" aria-checked="false">Типовое</button></div>
   <h2 class="system-heading">Произвольный цвет в абсолюте</h2><div class="system-white"><button class="system-radio" role="radio" data-color-state="absolute" aria-checked="false">Типовое</button></div>
  </div>
  <div class="system-box system-contacts">
-  <div class="system-contact"><img src="assets/system-designer.svg" alt=""><div class="system-contact-details"><span>Хорошева Елизавета</span><span class="system-link" aria-disabled="true">Согласование макета</span><div class="system-links"><span class="system-link" aria-disabled="true">Описание</span><img src="assets/system-api.svg" alt=""><span class="system-link" aria-disabled="true">API</span><span class="system-link" aria-disabled="true">WI</span></div></div></div>
+  <div class="system-contact"><img src="assets/system-designer.svg" alt=""><div class="system-contact-details"><span>Хорошева Елизавета</span><a class="system-link" href="https://online.saby.ru/opendoc.html?guid=019ed4f2-cfc4-763a-9d8e-5cae6800bbc9&amp;client=3" target="_blank" rel="noopener noreferrer">Согласование макета</a></div></div>
   <div class="system-contact"><img src="assets/system-web.svg" alt=""><span>Бегунов Андрей</span></div>
  </div>`;
 const demoLayout=document.createElement('div');demoLayout.className='demo-layout';$('.editor').before(demoLayout);demoLayout.append($('.editor'),systemPanel);
@@ -59,6 +59,7 @@ function hideFirstEntryCollections(){
 }
 function selectSystemState(state){
  if(state==='video'&&!mediaVideoAllowed)return;
+ pickerHistoryPinned.clear();
  if(activeScreen!=='media'&&draft.mode!=='media')systemColorDraft=structuredClone(draft);
  closeColorDialog();closeMediaOverlays();hideTooltip();stopPreviewVideo();
  collectionDisplay.hiddenSaved.clear();collectionDisplay.hiddenHistory.clear();
@@ -81,6 +82,8 @@ function selectSystemState(state){
 }
 function setSystemMediaMode(allowVideo){
  mediaVideoAllowed=allowVideo;
+ hideTooltip();renderBackgroundPalette(allowVideo?colors:photoOnlyColors);
+ $('.editor').classList.toggle('photo-only-mode',!allowVideo);
  systemPanel.querySelectorAll('[data-media-mode]').forEach(button=>button.setAttribute('aria-pressed',String((button.dataset.mediaMode==='video')===allowVideo)));
  systemPanel.querySelector('[data-system-state="video"]').hidden=!allowVideo;
  $('#tab-media').textContent=allowVideo?'Медиа':'Картинка';

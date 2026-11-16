@@ -20,9 +20,33 @@
 #media-color-dialog .color-usage{margin-top:12px;padding:8px 0;font-size:14px;line-height:18px;cursor:default}
 .color-usage-title{font-size:12px;font-weight:600;text-transform:uppercase;height:24px;display:flex;align-items:center;margin-bottom:4px;letter-spacing:-.1692px}
 .color-usage-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:24px 24px;grid-auto-flow:column}
-.color-usage-item{display:flex;align-items:center;height:24px;gap:4px}
-.color-usage-item img{display:block;flex:none;margin-left:4px}
+.color-usage-item{display:flex;align-items:flex-start;height:24px;gap:0;cursor:pointer;width:max-content}
+#media-color-dialog .color-usage-item input{appearance:none;flex:none;width:13px;height:13px;margin:5px 3px 6px 4px;padding:0;border:0;background:url('assets/color-checkbox-empty.svg') center no-repeat;cursor:pointer}
+#media-color-dialog .color-usage-item:hover input{background-image:url('assets/color-checkbox-hover.svg')}
+#media-color-dialog .color-usage-item input:checked{background-image:url('assets/color-checkbox-checked.svg')}
+#media-color-dialog .color-usage-item:hover input:checked{background-image:url('assets/color-checkbox-checked-hover.svg')}
+.color-usage-item span{padding:2px 0;line-height:normal}
 #media-color-dialog.color-variable-dialog .picker-card{padding-bottom:0}
 #media-color-dialog.color-variable-dialog .title{white-space:nowrap}
-#media-color-dialog.color-variable-dialog header .commands{gap:6px;padding-right:12px}
+#media-color-dialog.color-variable-dialog header .commands{gap:12px;padding-right:12px}
 #media-color-dialog.color-variable-dialog header .close{flex:none}
+.color-heading{display:contents}
+.color-heading.editable{display:flex;align-items:baseline;gap:8px;flex:1;min-width:0;margin:0 8px 0 16px;padding:2px 0 1px;cursor:pointer;border-bottom:1px solid transparent;line-height:normal}
+#media-color-dialog .color-heading.editable .title{margin:0;min-width:0;flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;line-height:normal}
+.color-heading.editable .color-variable-name{margin:0;font-size:15px;letter-spacing:-.2115px;min-width:0;overflow:hidden;text-overflow:ellipsis;line-height:normal}
+#media-color-dialog .color-heading.editable.balanced:not(.editing) .title,.color-heading.editable.balanced:not(.editing) .color-variable-name{flex:1 1 0;width:0;max-width:none}
+.color-heading.editable:hover .title{color:#575757}
+.color-heading.editable:hover .color-variable-name{color:#666}
+.color-heading.editable .title.heading-empty{color:rgba(137,145,169,.6)}
+.color-heading.editable.editing{border-bottom-color:#d2d6da;cursor:text}
+.color-heading-fields{display:flex;align-items:center;min-width:0;width:100%;height:21px}
+#media-color-dialog .color-heading [hidden]{display:none}
+#media-color-dialog .color-heading-fields input{width:0;min-width:0;flex:1;height:21px;padding:0;border:0;border-radius:0;outline:none;box-shadow:none;line-height:normal;color:#000;text-overflow:ellipsis;cursor:text}
+#media-color-dialog .color-heading-name-input{font-size:17px;letter-spacing:-.2397px}
+#media-color-dialog .color-heading-variable-input{font-size:15px;letter-spacing:-.2115px}
+.color-heading-name-input::placeholder{color:rgba(137,145,169,.6);opacity:1}
+.color-heading-divider{display:grid;place-items:center;width:17px;height:16px;flex:none}
+.color-heading-divider img{display:block;transform:rotate(90deg)}
+#media-color-dialog.color-variable-dialog header .commands{flex:none}
+.color-variable-row>span:first-of-type{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.color-variable-row .color-variable-code{white-space:nowrap;flex:none}
