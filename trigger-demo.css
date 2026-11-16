@@ -1,0 +1,24 @@
+.editor.trigger-mode>:not(#trigger-demo),.editor.trigger-mode>:not(#trigger-demo) *{visibility:hidden!important}
+#trigger-demo[hidden]{display:none}
+#trigger-demo{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;width:1024px;height:768px;padding:12px 32px;border:1px solid #eaeaea;border-radius:8px;background:#fff;overflow:hidden;color:#000;cursor:default}
+.trigger-row{display:grid;grid-template-columns:220px 1fr;column-gap:12px;min-height:58px;flex:none}
+.trigger-examples{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.trigger-description{display:flex;flex-direction:column;gap:6px;min-width:0;line-height:normal}
+.trigger-description h2{margin:0;font-size:15px;font-weight:600;letter-spacing:-.2115px;line-height:normal}
+.trigger-description p{margin:0;font-size:14px;font-weight:400;line-height:normal}
+.trigger-separator{height:1px;background:#eaeaea;opacity:.3;width:100%;flex:none}
+.trigger-separator.emphasized{background:#8f99a3}
+.trigger-sample{height:24px;display:flex;align-items:center;gap:2px;flex:none}
+.trigger-bubble{display:flex;align-items:center;gap:6px;padding-right:12px;border-radius:12px;height:24px;font-size:14px;line-height:normal;white-space:nowrap}
+.trigger-bubble.palette{width:auto;flex-wrap:nowrap;padding-bottom:0}
+.trigger-dot{display:block;position:relative;width:24px;height:24px;flex:none;border:1px solid #d2d6da;border-radius:30px;overflow:hidden;background:#0d92fb}
+.trigger-dot.translucent{background:linear-gradient(to right,#0d92fb 50%,transparent 50%),linear-gradient(#0d92fb33,#0d92fb33),url('assets/checkerboard.png') left top/10px 10px,#fff}
+.trigger-dot.danger{background:#dc2219}
+.trigger-dot.dominant{background:#5da5ae}
+.trigger-dot.accent{background:#f6733c}
+.trigger-dot.text{background:#313e78}
+.trigger-dot.hex{background:#b39519}
+.trigger-dot.photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:30px}
+.trigger-link,.trigger-clear{font-size:16px;line-height:24px;flex:none;width:16px;height:24px;text-align:center}
+.trigger-clear{color:#ccc}
+.trigger-link{color:#656c87}

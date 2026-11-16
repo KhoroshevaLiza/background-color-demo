@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_iconDevice">
+<mask id="stroke0_0_496" fill="white">
+<path d="M1 1H15V9C15 10.6569 13.6569 12 12 12H4C2.34315 12 1 10.6569 1 9V1Z"/>
+</mask>
+<path id="Rectangle 752" d="M1 1H15V9C15 10.6569 13.6569 12 12 12H4C2.34315 12 1 10.6569 1 9V1Z" stroke-width="2" stroke="white" mask="url(#stroke0_0_496)"/>
+<mask id="stroke1_0_496" fill="white">
+<path d="M5.70313 13.4453C5.8886 13.1671 6.20083 13 6.53518 13H9.46482C9.79917 13 10.1114 13.1671 10.2969 13.4453L10.9635 14.4453C11.4066 15.1099 10.9302 16 10.1315 16H5.86852C5.06982 16 4.59343 15.1099 5.03647 14.4453L5.70313 13.4453Z"/>
+</mask>
+<path id="Rectangle 753" d="M5.86852 16H10.1315C10.9302 16 11.4066 15.1099 10.9635 14.4453L10.2969 13.4453C10.1114 13.1671 9.79917 13 9.46482 13H6.53518C6.20083 13 5.8886 13.1671 5.70313 13.4453L5.03647 14.4453C4.59343 15.1099 5.06982 16 5.86852 16Z" stroke-width="2" stroke="white" mask="url(#stroke1_0_496)"/>
+</g>
+</svg>

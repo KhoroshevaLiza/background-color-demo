@@ -1,0 +1,28 @@
+.editor.color-demo-mode>:not(#color-demo),.editor.color-demo-mode>:not(#color-demo) *{visibility:hidden!important}
+#color-demo{position:absolute;inset:0;width:1024px;height:768px;background:#eae9ee}
+#color-demo[hidden],.color-variable-name[hidden],.color-usage[hidden]{display:none}
+#color-demo [hidden]{display:none}
+.color-demo-environment{position:absolute;inset:0;width:1024px;height:768px;pointer-events:none}
+.color-palette-mask{position:absolute;left:988px;top:17px;width:17px;height:14px;background:#e1e0e5}
+.color-demo-reopen{position:absolute;left:208px;top:264px;width:24px;height:24px;border:1px solid #d2d6da;border-radius:50%;background:var(--color-demo-value,#f6733c);opacity:var(--color-demo-alpha,1)}
+.color-demo-reopen.empty{background:#fff url('assets/trigger-empty.svg') center no-repeat;opacity:1}
+.color-demo-reopen.absolute{left:546px;top:123px}
+.color-variable-row{position:absolute;left:632px;top:50px;display:flex;align-items:center;gap:10px;height:32px;width:230px;background:#f8f8f8;text-align:left}
+.color-variable-row.other{top:92px}
+.color-variable-dot{display:block;flex:none;width:32px;height:32px;border:1px solid #d2d6da;border-radius:50%;background:var(--color-demo-value);opacity:var(--color-demo-alpha,1)}
+.color-variable-code{color:#999;margin-left:-2px}
+.color-variable-name{color:#999;font-size:14px;margin-left:8px;white-space:nowrap}
+#media-color-dialog.standalone-color-dialog{z-index:20}
+#media-color-dialog.color-picker-only .picker-heading{display:none}
+#media-color-dialog.color-picker-only .picker-card{padding-top:8px}
+#media-color-dialog.color-picker-only .value-card{gap:0}
+#media-color-dialog.color-picker-only .pin[hidden],#media-color-dialog .icon[hidden]{display:none}
+#media-color-dialog .color-usage{margin-top:12px;padding:8px 0;font-size:14px;line-height:18px;cursor:default}
+.color-usage-title{font-size:12px;font-weight:600;text-transform:uppercase;height:24px;display:flex;align-items:center;margin-bottom:4px;letter-spacing:-.1692px}
+.color-usage-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:24px 24px;grid-auto-flow:column}
+.color-usage-item{display:flex;align-items:center;height:24px;gap:4px}
+.color-usage-item img{display:block;flex:none;margin-left:4px}
+#media-color-dialog.color-variable-dialog .picker-card{padding-bottom:0}
+#media-color-dialog.color-variable-dialog .title{white-space:nowrap}
+#media-color-dialog.color-variable-dialog header .commands{gap:6px;padding-right:12px}
+#media-color-dialog.color-variable-dialog header .close{flex:none}

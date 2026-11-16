@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="_checkbox">
+<path id="background" d="M8 0.5H4C2.067 0.5 0.5 2.067 0.5 4V8C0.5 9.933 2.067 11.5 4 11.5H8C9.933 11.5 11.5 9.933 11.5 8V4C11.5 2.067 9.933 0.5 8 0.5Z" fill="white"/>
+<path id="border" d="M0 4C0 1.79086 1.79086 0 4 0H8C10.2091 0 12 1.79086 12 4V8C12 10.2091 10.2091 12 8 12H4C1.79086 12 0 10.2091 0 8V4ZM1 4C1 2.34315 2.34315 1 4 1H8C9.65685 1 11 2.34315 11 4V8C11 9.65685 9.65685 11 8 11H4C2.34315 11 1 9.65685 1 8V4Z" fill-rule="evenodd" clip-rule="evenodd" fill="#D2D6DA"/>
+</g>
+</svg>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Выбор фона — демо</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="textures.css">
+<link rel="stylesheet" href="media.css">
+<link rel="stylesheet" href="media-viewer.css">
+<link rel="stylesheet" href="video-viewer.css">
+<link rel="stylesheet" href="system-panel.css">
+<link rel="stylesheet" href="trigger-demo.css">
+<link rel="stylesheet" href="trigger-fills.css">
+<link rel="stylesheet" href="color-demo.css">
+<main class="editor" aria-label="Редактор страницы">
+  <img class="editor-image" src="assets/editor.png" alt="">
+  <img class="editor-image editor-detail" src="assets/editor-original.png" alt="Панель инструментов секции">
+  <div class="section-outline" aria-hidden="true"></div>
+  <div class="background-clip"><div id="background-surface"><div id="background" class="section-background"></div><div id="applied-media" hidden></div><div id="background-texture" class="background-texture" aria-hidden="true"></div></div></div>
+  <div class="section-content-overlay" aria-hidden="true"></div>
+  <div class="section-add section-add-top" aria-label="Добавить секцию"><span class="section-plus" aria-hidden="true"></span><span>секция</span></div>
+  <div class="section-add section-add-bottom" aria-label="Добавить секцию"><span class="section-plus" aria-hidden="true"></span><span>секция</span></div>
+  <div class="section-actions" aria-label="Элементы секции">
+    <div class="section-action"><span class="layout-icon layout-columns" aria-hidden="true"></span><span>Колонки</span></div>
+    <div class="section-action section-action-widget"><span class="layout-icon layout-widget" aria-hidden="true"></span><span>Виджет</span></div>
+    <div class="section-action"><span class="layout-icon layout-rows" aria-hidden="true"></span><span>Строки</span></div>
+  </div>
+  <button id="open" class="open-background" aria-label="Настроить фон" title="Настроить фон"></button>
+  <section id="dialog" class="dialog" role="dialog" aria-label="Фон">
+    <header id="drag"><span class="title">Фон</span><div class="tabs"><button id="tab-color" class="selected">Цвет</button><button id="tab-media">Медиа</button></div><div class="commands"><button class="icon" aria-label="Пипетка" disabled><img src="assets/eyedropper.svg" alt=""></button><button id="reset" class="icon" aria-label="Сбросить"><img src="assets/reset.svg" alt=""></button><button id="apply" class="icon success" aria-label="Применить"><img src="assets/save.svg" alt=""></button></div><button id="close" class="close" aria-label="Отменить"><img src="assets/close.svg" alt=""></button></header>
+    <div class="content"><div class="value-card"><div id="preview" class="preview"><span class="preview-fill"><span id="preview-texture" class="texture-overlay" hidden></span></span></div><button class="pin" aria-label="Добавить в Мои цвета" aria-pressed="false"><img src="assets/pin.svg" alt=""></button><div id="gradient-summary" hidden></div><div class="fields"><span class="format">HEX<img src="assets/arrow.svg" alt=""></span><span class="hex-field"><span aria-hidden="true">#</span><input id="hex" aria-label="HEX цвета" value="FFFBE3" placeholder="FFFFFF" maxlength="6"></span><label><input id="alpha" aria-label="Непрозрачность" type="number" min="0" max="100" value="100">%</label></div></div><div id="palette-screen" class="palette-card"><div id="mine-block" hidden><div class="color-group-title">Мои</div><div id="mine" class="palette"></div><div class="color-group-title palette-title">Палитра</div></div><div id="palette" class="palette"></div><div id="blur-controls" class="blur-controls" hidden><span>Размытие</span><input id="blur-range" type="range" min="0" max="5" step="1" value="0" aria-label="Размытие"><input id="blur-value" type="number" min="0" max="5" step="1" value="0" aria-label="Значение размытия"><button id="blur-remove" aria-label="Удалить размытие"><img src="assets/close.svg" alt=""></button></div><footer><button id="open-picker">Другой цвет</button><button id="open-gradient">Градиент</button><button id="open-effects">Эффекты</button></footer></div></div>
+    <section id="picker-screen" class="picker-card" hidden aria-label="Другой цвет">
+  <div class="picker-heading"><button id="picker-back" aria-label="Вернуться к палитре"><img src="assets/picker-back.svg" alt=""></button><span>Другой цвет</span></div>
+  <div class="picker-controls">
+    <div id="sv-picker" class="sv-picker" tabindex="0" role="slider" aria-label="Насыщенность и яркость" aria-valuemin="0" aria-valuemax="100"><span id="sv-thumb" class="sv-thumb"></span></div>
+    <div id="hue-picker" class="picker-rail" tabindex="0" role="slider" aria-label="Оттенок" aria-valuemin="0" aria-valuemax="360"><div class="hue-track"></div><span id="hue-thumb" class="rail-thumb"></span></div>
+    <div id="opacity-picker" class="picker-rail" tabindex="0" role="slider" aria-label="Прозрачность цвета" aria-valuemin="0" aria-valuemax="100"><div class="opacity-track"></div><span id="opacity-thumb" class="rail-thumb"></span></div>
+  </div>
+  <div id="picker-history" class="picker-history" hidden><div class="color-group-title">Ранее использовались</div><div id="picker-history-colors" class="palette"></div></div>
+</section>
+<section id="texture-screen" class="texture-card" hidden aria-label="Текстура"><div class="picker-heading"><button id="texture-back" aria-label="Вернуться к палитре"><img src="assets/picker-back.svg" alt=""></button><span>Текстура</span></div><div id="texture-options"></div></section>
+<section id="gradient-screen" class="texture-card" hidden aria-label="Градиент">
+  <div class="picker-heading"><button id="gradient-back" class="back-round" aria-label="Вернуться к палитре"><img src="assets/picker-back.svg" alt=""></button><span>Градиент</span></div>
+  <div id="gradient-options"></div>
+  <div id="gradient-history" class="picker-history" hidden><div class="color-group-title">Ранее использовались</div><div id="gradient-history-colors" class="palette"></div></div>
+</section>
+<section id="gradient-editor" class="gradient-card" hidden aria-label="Свой градиент">
+  <div class="picker-heading"><button id="gradient-editor-back" class="back-round" aria-label="Вернуться к вариантам градиента"><img src="assets/picker-back.svg" alt=""></button><span>Свой</span><div class="gradient-breadcrumb"><button id="gradient-home" aria-label="Вернуться к палитре"><img src="assets/gradient-home.svg" alt=""></button><button id="gradient-breadcrumb">Градиент</button></div></div>
+  <div class="gradient-toolbar"><div class="gradient-type-wrap"><button id="gradient-type" aria-haspopup="menu" aria-expanded="false">Линейный<img src="assets/arrow.svg" alt=""></button><div id="gradient-type-menu" hidden role="menu"><button data-type="linear" role="menuitem">Линейный</button><button data-type="radial" role="menuitem">Радиальный</button></div></div><div class="gradient-direction"><label id="gradient-angle-field"><img src="assets/gradient-angle.svg" alt=""><input id="gradient-angle" type="number" aria-label="Угол градиента" value="90">°</label><button id="gradient-rotate" class="gradient-command" aria-label="Повернуть градиент" title="Повернуть градиент"><img src="assets/gradient-turn.svg" alt=""></button><button id="gradient-swap" class="gradient-command" aria-label="Поменять цвета местами" title="Поменять цвета местами"><img src="assets/gradient-swap.svg" alt=""></button></div></div>
+  <div id="gradient-track" class="gradient-track"><div class="gradient-track-fill"></div><button class="gradient-stop" data-stop="0" role="slider" aria-label="Начало перехода" aria-valuemin="0" aria-valuemax="100"></button><button class="gradient-stop" data-stop="1" role="slider" aria-label="Конец перехода" aria-valuemin="0" aria-valuemax="100"></button></div>
+  <div class="gradient-divider"><span id="gradient-active-pointer"></span></div>
+  <div id="gradient-rows"></div><div id="gradient-editor-history" class="picker-history" hidden><div class="color-group-title">Ранее использовались</div><div id="gradient-editor-history-colors" class="palette"></div></div>
+</section>
+<section id="media-screen" hidden><div class="media-card"><div class="media-preview"><div class="media-preview-visual"><img id="media-preview-image" src="assets/photo.png" alt="Превью фона"><div id="media-preview-style"></div></div><div class="media-preview-actions"><button id="media-replace" aria-label="Заменить медиа" title="Заменить медиа"><span class="media-glyph">&#xE671;</span></button><button id="media-edit" aria-label="Кадрировать" title="Кадрировать"><span class="media-glyph">&#xE660;</span></button><button disabled aria-label="Развернуть"><span class="media-glyph">&#xE95F;</span></button></div><div id="video-dummy-controls" hidden><div class="video-dummy-progress"><i></i></div><div class="video-dummy-buttons"><span>◀◀</span><span class="video-dummy-play">▶</span><span>▶▶</span></div></div></div><div id="photo-layout-controls"><div class="media-property"><span>Отображение</span><button id="media-fit">Кадрировать</button><button id="media-crop" aria-label="Кадрировать"><span class="media-glyph">&#xE660;</span></button></div><div class="media-property"><span>Расположение</span><button id="media-position">По центру</button></div></div><div class="media-property"><span>Стиль</span><button id="media-style">Оригинал картинки</button></div><div id="media-style-color-row" class="media-property" hidden><span>Цвет</span><button id="media-style-color"><i></i><span>Доминантный</span></button><button id="media-style-color-reset" aria-label="Вернуть доминантный цвет"><img src="assets/close.svg" alt=""></button></div><div id="media-style-strength" hidden></div></div><div id="media-effects" class="media-card"></div></section>
+<section id="media-load-menu" hidden aria-label="Загрузить картинку или видео"><div class="media-load-heading">Загрузить картинку или видео<button id="media-load-close" aria-label="Закрыть меню загрузки"><img src="assets/close.svg" alt=""></button></div><div class="media-load-items"><button id="media-computer"><span class="media-glyph large">&#xE730;</span>С компьютера</button><button disabled><span class="media-glyph large">&#xE6FD;</span>Из буфера обмена<span class="media-glyph">&#xE6A2;</span></button><button disabled><span class="media-glyph large">&#xE73B;</span>Из документов</button><button disabled><span class="media-glyph large">&#xE90A;</span>Из коллекции</button></div><div class="media-collection"><img src="assets/media-collection-1.png" alt=""><img src="assets/media-collection-2.png" alt=""></div></section>
+<section id="media-options-menu" class="media-options-menu" hidden></section>
+<section id="effects-menu" class="effects-menu" hidden aria-label="Эффекты"><div class="effects-title">Эффекты</div><button id="effects-close" aria-label="Закрыть Эффекты"><img src="assets/close.svg" alt=""></button><button id="choose-texture" class="effect-option">Текстура</button><button id="choose-blur" class="effect-option">Размытие</button></section>
+<section id="mine-menu" class="mine-menu" hidden aria-label="Мои цвета"><div class="mine-menu-header"><span>Мои</span><button id="mine-close" aria-label="Закрыть Мои"><img src="assets/close.svg" alt=""></button></div><div id="mine-list"></div></section>
+  </section>
+<section id="media-finder" hidden role="dialog" aria-label="Выбор файла"><img class="finder-original" src="assets/finder-chrome.png" alt=""><div class="finder-main"><div class="finder-files"><button data-file="photo"><span class="finder-thumbnail"><img src="assets/photo.png" alt=""></span><span class="finder-filename">Картинка.png</span><small>877 × 547</small></button><button data-file="video"><span class="finder-thumbnail"><img id="finder-video-image" alt=""></span><span class="finder-filename">Nature_3___25s___4k_res.mp4</span><small>00:25</small></button></div><div class="finder-footer"><button id="finder-cancel">Отменить</button><button id="finder-open" disabled>Открыть</button></div></div></section>
+<section id="media-crop-screen" hidden role="dialog" aria-label="Кадрирование"><img id="crop-photo" src="assets/photo.png" alt="Фото для кадрирования"><div class="crop-frame"><i></i><i></i><i></i><i></i></div><img class="crop-tools" src="assets/crop-tools.png" alt=""><img class="crop-zoom" src="assets/crop-zoom.png" alt=""><button id="crop-apply" class="success" aria-label="Сохранить кадрирование"><img src="assets/save.svg" alt=""></button><button id="crop-cancel" aria-label="Отменить кадрирование"><img src="assets/crop-close.png" alt=""></button></section>
+</main>
+<div id="color-tooltip" class="color-tooltip" role="tooltip" hidden><span id="tooltip-value"></span><button id="tooltip-pin" aria-label="Добавить в Мои цвета"><img id="tooltip-pin-icon" src="assets/pin.svg" alt=""></button></div>
+<script src="app.js"></script>
+<script src="photo-source.js"></script>
+<script src="media.js"></script>
+<script src="media-settings.js"></script>
+<script src="media-color.js"></script>
+<script src="media-viewer.js"></script>
+<script src="video-viewer.js"></script>
+<script src="video-preview.js"></script>
+<script src="eyedropper.js"></script>
+<script src="system-panel.js"></script>
+<script src="trigger-demo.js"></script>
+<script src="color-demo.js"></script>
+</html>
