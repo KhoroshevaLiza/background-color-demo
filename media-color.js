@@ -32,7 +32,7 @@ function openColorDialog({value,anchor,onConfirm,title='Цвет',...options}){
   if(typeof configureColorHeading==='function')configureColorHeading(options);
   $('#media-color-palette-card').hidden=!!options.pickerOnly;$('#media-color-picker').hidden=!options.pickerOnly;
   const palette=$('#media-color-palette');palette.replaceChildren();
-  for(const color of [...options.allowNone?[null]:[],...(options.palette||colors.filter(Boolean))]){const button=document.createElement('button');button.className='swatch';button.classList.toggle('no-color',color===null);button.style.background=color||'#fff';attachTooltip(button,{color,alpha:100});button.onclick=()=>{mediaColorValue={color,alpha:100};saveMediaColor();};palette.append(button);}
+  for(const color of [...options.allowNone?[null]:[],...(options.palette||colors.filter(Boolean))]){const button=document.createElement('button');button.className='swatch';button.classList.toggle('no-color',color===null);button.style.background=color||'#fff';attachTooltip(button,{color,alpha:100});button.onclick=()=>{mediaColorValue={color,alpha:100};saveMediaColor({fromPalette:true});};palette.append(button);}
   $('#media-color-reset').hidden=!!options.pickerOnly;$('#media-color-pin').hidden=!!options.pickerOnly;
   if(typeof renderColorUsage==='function')renderColorUsage(options);
   mediaColorDialog.hidden=false;renderMediaColor();renderColorCollections();positionColorDialog();
@@ -86,11 +86,12 @@ function renderMediaColor(syncHSV=true){
   $('#media-color-sv').style.setProperty('--hue-color',`hsl(${hsv.h} 100% 50%)`);$('#media-color-sv .sv-thumb').style.left=hsv.s*100+'%';$('#media-color-sv .sv-thumb').style.top=(1-hsv.v)*100+'%';$('#media-color-sv .sv-thumb').style.borderColor=hsv.v>.6?'#222':'#fff';
   $('#media-color-hue .rail-thumb').style.top=hsv.h/360*246+'px';$('#media-color-hue .rail-thumb').style.background=`hsl(${hsv.h} 100% 50%)`;
   $('#media-color-opacity').style.setProperty('--opacity-color',mediaColorValue.color||'#FFFFFF');$('#media-color-opacity .rail-thumb').style.top=(1-mediaColorValue.alpha/100)*246+'px';$('#media-color-opacity .rail-thumb').style.background=mediaColorValue.color||'#FFFFFF';
+  if(typeof syncColorFormatFields==='function')syncColorFormatFields();
 }
-function saveMediaColor(){
+function saveMediaColor({fromPalette=false}={}){
   if(!colorDialogOptions)return;
   const value={...mediaColorValue},confirm=colorDialogOptions.onConfirm;
-  remember(value);closeColorDialog();confirm(value);renderSaved();
+  if(!fromPalette)remember(value);closeColorDialog();confirm(value);renderSaved();
 }
 $('#media-color-apply').onclick=saveMediaColor;
 $('#media-color-close').onclick=closeColorDialog;

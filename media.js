@@ -101,7 +101,7 @@ function renderAppliedMedia(){
   if(typeof paintMediaSurface==='function')paintMediaSurface(host,source,host.querySelector('.applied-media-style'),value,'applied');
   return true;
 }
-function openLoadMenu(){hideTooltip();$('#media-options-menu').hidden=true;$('#media-load-menu').hidden=false;}
+function openLoadMenu(){hideTooltip();$('#media-options-menu').hidden=true;$('#media-load-menu').hidden=false;$('#media-load-scroll').scrollTop=0;}
 $('#tab-media').onclick=()=>{if(!draft.media){openLoadMenu();return;}draft.mode='media';setScreen('media');};
 $('#tab-color').onclick=()=>{draft.mode='color';setScreen('palette');update();};
 $('#media-load-close').onclick=()=>{$('#media-load-menu').hidden=true;if(!draft.media)setScreen('palette');};

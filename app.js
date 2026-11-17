@@ -14,7 +14,7 @@ const getSavedColors=()=>((savedColors.length||collectionDisplay.savedEdited)?sa
 const getHistoryColors=()=>((historyColors.length||collectionDisplay.historyEdited)?historyColors:collectionDisplay.historyFallback).filter(value=>!collectionDisplay.hiddenHistory.has(colorKey(value)));
 let menuSavedRows=[],menuHistoryRows=[];
 let mineContext=null;
-const colorKey=value=>`${value.color}:${value.alpha}:${value.texture||0}:${value.blur||0}:${JSON.stringify(value.gradient||null)}`;
+const colorKey=value=>`${value.color}:${value.alpha}:${value.texture||0}:${value.blur||0}:${JSON.stringify(value.gradient?{...value.gradient,presetReversed:undefined}:null)}`;
 const isSaved=value=>getSavedColors().some(item=>colorKey(item)===colorKey(value));
 const colorLabel=value=>value.gradient?value.gradient.colors.map((color,index)=>`${color}${value.gradient.alphas[index]<100?", "+value.gradient.alphas[index]/100:""}`).join(" → "):`${value.color}${value.alpha<100?', '+Number((value.alpha/100).toFixed(2)):''}`;
 let tooltipValue=null,tooltipAnchor=null,tooltipShowTimer,tooltipHideTimer;
@@ -227,6 +227,7 @@ function updatePreview(){
   renderPicker();
   if(activeScreen==='gradient')renderGradients();
   if(activeScreen==='gradient-editor')renderGradientEditor();
+  if(typeof syncColorFormatFields==='function')syncColorFormatFields();
 }
 function renderApplied(){
   const baseColor=applied.gradient?.colors[0]||applied.color||'#F8F8F8';
@@ -243,10 +244,10 @@ function renderApplied(){
   texture.style.filter='none';
   $('#background-surface').style.filter=`blur(${(applied.blur||0)/2}px)`;
 }
-function commit(){
+function commit({fromPalette=false}={}){
   hideTooltip();
   applied={...draft};
-  if(applied.mode!=='media')remember(applied);renderSaved();
+  if(applied.mode!=='media'&&!fromPalette)remember(applied);renderSaved();
   renderApplied();
   $('#dialog').hidden=true;
   if(typeof closeMediaOverlays==='function')closeMediaOverlays();
@@ -255,7 +256,7 @@ function commit(){
 }
 function renderBackgroundPalette(values=colors){
   $('#palette').replaceChildren();
-  for(const color of values){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit();};$('#palette').append(b);}
+  for(const color of values){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit({fromPalette:true});};$('#palette').append(b);}
 }
 renderBackgroundPalette();
 $('#apply').onclick=commit;$('#close').onclick=()=>{draft={...snapshot};update();$('#dialog').hidden=true;};$('#reset').onclick=()=>{draft={...snapshot};if((activeScreen==='gradient-editor'&&!draft.gradient)||(activeScreen==='media'&&!draft.media))setScreen('palette');update();};$('#open').onclick=()=>{pickerHistoryPinned.clear();snapshot={...applied};draft={...applied};setScreen(applied.mode==='media'?'media':'palette');update();$('#dialog').hidden=false;};
@@ -429,14 +430,16 @@ function changeGradientStop(index,patch){
   const g=draft.gradient,colors=[...g.colors],alphas=[...g.alphas];
   if(patch.color!==undefined)colors[index]=patch.color;
   if(patch.alpha!==undefined)alphas[index]=patch.alpha;
-  draft.gradient={...g,colors,alphas};draft.color=colors[0];draft.alpha=alphas[0];
+  draft.gradient={...g,colors,alphas,presetReversed:false};draft.color=colors[0];draft.alpha=alphas[0];
 }
 function renderGradients(){
-  const base=draft.gradient||defaultGradient();
-  const variants=[{type:'linear',angle:90},{type:'linear',angle:0},{type:'linear',angle:167.5085},{type:'linear',angle:10.8685},{type:'radial',radius:50,end:50.481},{type:'radial',radius:78.125}];
+  const current=draft.gradient||defaultGradient();
+  const base=current.presetReversed?{...current,colors:[...current.colors].reverse(),alphas:[...current.alphas].reverse()}:current;
+  const variants=[{type:'linear',angle:180},{type:'linear',angle:270},{type:'linear',angle:0},{type:'linear',angle:90},{type:'radial',radius:50,end:50.481},{type:'radial',radius:78.125}];
   const options=$('#gradient-options');options.replaceChildren();
   variants.forEach((variant,index)=>{
-    const value={...draft,color:draft.color||'#FFFFFF',gradient:{...base,start:0,end:100,...variant}};
+    const reversed=variant.type==='radial',colors=reversed?[...base.colors].reverse():[...base.colors],alphas=reversed?[...base.alphas].reverse():[...base.alphas];
+    const value={...draft,color:colors[0],alpha:alphas[0],gradient:{...base,start:0,end:100,...variant,colors,alphas,presetReversed:reversed}};
     const button=document.createElement('button');button.className='texture-option';button.style.background=gradientCSS(value,true);button.setAttribute('aria-label',`Градиент ${index+1}`);
     button.onclick=()=>{draft=value;setScreen('palette');update();};options.append(button);
   });
@@ -504,6 +507,7 @@ function renderGradientEditor(){
     if(document.activeElement!==hex)hex.value=g.colors[index].slice(1);
     if(document.activeElement!==alpha)alpha.value=g.alphas[index];
   });
+  if(typeof syncColorFormatFields==='function')syncColorFormatFields();
 }
 function styleGradientColorCircle(element,color,alpha){
   const translucent=color+Math.round(alpha/100*255).toString(16).padStart(2,'0');
@@ -522,7 +526,7 @@ $('#gradient-type').onclick=()=>{const menu=$('#gradient-type-menu');menu.hidden
 document.querySelectorAll('#gradient-type-menu button').forEach(button=>button.onclick=()=>{patchGradient({type:button.dataset.type});$('#gradient-type-menu').hidden=true;$('#gradient-type').setAttribute('aria-expanded','false');});
 $('#gradient-angle').onchange=event=>patchGradient({angle:((Math.round(Number(event.target.value)||0)%360)+360)%360});
 $('#gradient-rotate').onclick=()=>patchGradient({angle:(draft.gradient.angle+90)%360});
-$('#gradient-swap').onclick=()=>{const g=draft.gradient;draft.gradient={...g,colors:[...g.colors].reverse(),alphas:[...g.alphas].reverse()};draft.color=draft.gradient.colors[0];draft.alpha=draft.gradient.alphas[0];update();};
+$('#gradient-swap').onclick=()=>{const g=draft.gradient;draft.gradient={...g,presetReversed:false,colors:[...g.colors].reverse(),alphas:[...g.alphas].reverse()};draft.color=draft.gradient.colors[0];draft.alpha=draft.gradient.alphas[0];update();};
 document.querySelectorAll('.gradient-stop').forEach((button,index)=>{
   let pointer=null,startX=0,startY=0,dragged=false;
   const move=event=>{

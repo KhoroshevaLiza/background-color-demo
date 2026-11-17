@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="trigger-demo.css">
 <link rel="stylesheet" href="trigger-fills.css">
 <link rel="stylesheet" href="color-demo.css">
+<link rel="stylesheet" href="format-menu.css">
 <link rel="stylesheet" href="demo-heading.css">
 <section class="demo-heading" aria-label="Описание демо">
   <a class="demo-heading-title" href="http://axure.tensor.ru/StandardsV8/guidelines.html" target="_blank" rel="noopener noreferrer"><img src="assets/demo-heading-back.svg" alt=""><h1>Выбор фона и цвета</h1><span class="demo-heading-version">26.6100</span></a>
@@ -61,7 +62,7 @@
   <div id="gradient-rows"></div><div id="gradient-editor-history" class="picker-history" hidden><div class="color-group-title">Ранее использовались</div><div id="gradient-editor-history-colors" class="palette"></div></div>
 </section>
 <section id="media-screen" hidden><div class="media-card"><div class="media-preview"><div class="media-preview-visual"><img id="media-preview-image" src="assets/photo.png" alt="Превью фона"><div id="media-preview-style"></div></div><div class="media-preview-actions"><button id="media-replace" aria-label="Заменить медиа" title="Заменить медиа"><span class="media-glyph">&#xE671;</span></button><button id="media-edit" aria-label="Кадрировать" title="Кадрировать"><span class="media-glyph">&#xE660;</span></button><button disabled aria-label="Развернуть"><span class="media-glyph">&#xE95F;</span></button></div><div id="video-dummy-controls" hidden><div class="video-dummy-progress"><i></i></div><div class="video-dummy-buttons"><span>◀◀</span><span class="video-dummy-play">▶</span><span>▶▶</span></div></div></div><div id="photo-layout-controls"><div class="media-property"><span>Отображение</span><button id="media-fit">Кадрировать</button><button id="media-crop" aria-label="Кадрировать"><span class="media-glyph">&#xE660;</span></button></div><div class="media-property"><span>Расположение</span><button id="media-position">По центру</button></div></div><div class="media-property"><span>Стиль</span><button id="media-style">Оригинал картинки</button></div><div id="media-style-color-row" class="media-property" hidden><span>Цвет</span><button id="media-style-color"><i></i><span>Доминантный</span></button><button id="media-style-color-reset" aria-label="Вернуть доминантный цвет"><img src="assets/close.svg" alt=""></button></div><div id="media-style-strength" hidden></div></div><div id="media-effects" class="media-card"></div></section>
-<section id="media-load-menu" hidden aria-label="Загрузить картинку или видео"><div class="media-load-heading">Загрузить картинку или видео<button id="media-load-close" aria-label="Закрыть меню загрузки"><img src="assets/close.svg" alt=""></button></div><div class="media-load-items"><button id="media-computer"><span class="media-glyph large">&#xE730;</span>С компьютера</button><button disabled><span class="media-glyph large">&#xE6FD;</span>Из буфера обмена<span class="media-glyph">&#xE6A2;</span></button><button disabled><span class="media-glyph large">&#xE73B;</span>Из документов</button><button disabled><span class="media-glyph large">&#xE90A;</span>Из коллекции</button></div><div class="media-collection"><img src="assets/media-collection-1.png" alt=""><img src="assets/media-collection-2.png" alt=""></div></section>
+<section id="media-load-menu" hidden aria-label="Загрузить картинку или видео"><div class="media-load-heading">Загрузить картинку или видео<button id="media-load-close" aria-label="Закрыть меню загрузки"><img src="assets/close.svg" alt=""></button></div><div id="media-load-scroll" class="media-load-scroll"><div class="media-load-items"><button id="media-computer"><span class="media-glyph large">&#xE730;</span>С компьютера</button><button disabled><span class="media-glyph large">&#xE6FD;</span>Из буфера обмена<span class="media-glyph">&#xE6A2;</span></button><button disabled><span class="media-glyph large">&#xE73B;</span>Из документов</button><button disabled><span class="media-glyph large">&#xE90A;</span>Из коллекции</button></div><div class="media-collection" aria-label="Группы коллекции"></div></div></section>
 <section id="media-options-menu" class="media-options-menu" hidden></section>
 <section id="effects-menu" class="effects-menu" hidden aria-label="Эффекты"><div class="effects-title">Эффекты</div><button id="effects-close" aria-label="Закрыть Эффекты"><img src="assets/close.svg" alt=""></button><button id="choose-texture" class="effect-option">Текстура</button><button id="choose-blur" class="effect-option">Размытие</button></section>
 <section id="mine-menu" class="mine-menu" hidden aria-label="Мои цвета"><div class="mine-menu-header"><span>Мои</span><button id="mine-close" aria-label="Закрыть Мои"><img src="assets/close.svg" alt=""></button></div><div id="mine-list"></div></section>
@@ -73,6 +74,7 @@
 <script src="app.js"></script>
 <script src="photo-source.js"></script>
 <script src="media.js"></script>
+<script src="media-collection.js"></script>
 <script src="media-settings.js"></script>
 <script src="media-color.js"></script>
 <script src="color-heading.js"></script>
@@ -83,4 +85,5 @@
 <script src="system-panel.js"></script>
 <script src="trigger-demo.js"></script>
 <script src="color-demo.js"></script>
+<script src="format-menu.js"></script>
 </html>
