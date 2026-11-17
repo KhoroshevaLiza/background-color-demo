@@ -261,6 +261,12 @@ function renderBackgroundPalette(values=colors){
 renderBackgroundPalette();
 $('#apply').onclick=commit;$('#close').onclick=()=>{draft={...snapshot};update();$('#dialog').hidden=true;};$('#reset').onclick=()=>{draft={...snapshot};if((activeScreen==='gradient-editor'&&!draft.gradient)||(activeScreen==='media'&&!draft.media))setScreen('palette');update();};$('#open').onclick=()=>{pickerHistoryPinned.clear();snapshot={...applied};draft={...applied};setScreen(applied.mode==='media'?'media':'palette');update();$('#dialog').hidden=false;};
 $('#hex').onchange=e=>{const v=e.target.value.replace(/[^a-f0-9]/gi,'');if(v)setEditingColor('#'+v.repeat(6).slice(0,6).toUpperCase(),editingColor().alpha);update();};$('#alpha').oninput=e=>{setEditingColor(editingColor().color,Math.max(0,Math.min(100,Number(e.target.value))));updatePreview();};
+document.addEventListener('input',event=>{
+  const input=event.target;if(!input.matches('.hex-field input')||event.isComposing)return;
+  const upper=input.value.toUpperCase();if(input.value===upper)return;
+  const start=input.selectionStart,end=input.selectionEnd,direction=input.selectionDirection;
+  input.value=upper;input.setSelectionRange(start,end,direction);
+});
 $('#drag').onpointerdown=e=>{if(e.target.closest('button,input'))return;const d=$('#dialog'),r=d.getBoundingClientRect(),base=$('.editor').getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;d.style.right='auto';$('#drag').setPointerCapture(e.pointerId);$('#drag').onpointermove=m=>{d.style.left=Math.max(0,Math.min(658,m.clientX-base.left-dx))+'px';d.style.top=Math.max(0,Math.min(712,m.clientY-base.top-dy))+'px';};$('#drag').onpointerup=()=>{$('#drag').onpointermove=null;};};
 function hexToHSV(hex){
   const [r,g,b]=[1,3,5].map(index=>parseInt(hex.slice(index,index+2),16)/255);
@@ -416,8 +422,9 @@ function setEditingColor(color,alpha){
 function gradientCSS(value,opaque=false){
   const g=value.gradient;
   const rgba=(color,alpha)=>`rgba(${[1,3,5].map(i=>parseInt(color.slice(i,i+2),16)).join(',')},${opaque?1:alpha/100})`;
-  const stops=g.colors.map((color,index)=>`${rgba(color,g.alphas[index])} ${index===0?g.start:g.end}%`).join(',');
-  return g.type==='radial'?`radial-gradient(ellipse ${g.radius||50}% ${g.radius||50}% at center,${stops})`:`linear-gradient(${g.angle}deg,${stops})`;
+  const distance=g.type==='radial'&&g.shape==='circle'?(g.radius||50)/100:1;
+  const stops=g.colors.map((color,index)=>`${rgba(color,g.alphas[index])} ${(index===0?g.start:g.end)*distance}%`).join(',');
+  return g.type==='radial'?g.shape==='circle'?`radial-gradient(circle farthest-corner at center,${stops})`:`radial-gradient(ellipse ${g.radius||50}% ${g.radius||50}% at center,${stops})`:`linear-gradient(${g.angle}deg,${stops})`;
 }
 function defaultGradient(){
   const color=draft.color||'#FFFFFF',hsv=hexToHSV(color);
@@ -439,7 +446,7 @@ function renderGradients(){
   const options=$('#gradient-options');options.replaceChildren();
   variants.forEach((variant,index)=>{
     const reversed=variant.type==='radial',colors=reversed?[...base.colors].reverse():[...base.colors],alphas=reversed?[...base.alphas].reverse():[...base.alphas];
-    const value={...draft,color:colors[0],alpha:alphas[0],gradient:{...base,start:0,end:100,...variant,colors,alphas,presetReversed:reversed}};
+    const value={...draft,color:colors[0],alpha:alphas[0],gradient:{...base,start:0,end:100,...variant,shape:reversed?'circle':undefined,colors,alphas,presetReversed:reversed}};
     const button=document.createElement('button');button.className='texture-option';button.style.background=gradientCSS(value,true);button.setAttribute('aria-label',`Градиент ${index+1}`);
     button.onclick=()=>{draft=value;setScreen('palette');update();};options.append(button);
   });

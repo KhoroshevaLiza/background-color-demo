@@ -40,6 +40,12 @@ function renderMediaScreen(screen){
   if(!media){closeMediaOverlays();return;}
   if(!draft.media)return;
   const value=draft.media,video=value.type==='video';
+  $('#media-screen').classList.toggle('photo-settings',!video);
+  if(!video){
+    const reference=$(value.fit==='Вписать'?'#media-position':'#media-fit').previousElementSibling,style=getComputedStyle(reference),context=document.createElement('canvas').getContext('2d');
+    context.font=style.font;context.letterSpacing=style.letterSpacing;
+    $('#media-screen').style.setProperty('--photo-label-width',context.measureText(reference.textContent).width+'px');
+  }
   $('#media-preview-image').src=video?'assets/video-poster.png':'assets/photo.png';
   $('#media-preview-image').style.filter=mediaFilter(value,'preview');
   $('#media-preview-image').style.opacity=value.alpha/100;
@@ -72,12 +78,17 @@ function renderMediaEffects(){
     }
   }
   for(const [key,,min,max]of effects){const row=container.querySelector(`[data-effect="${key}"]`);for(const input of row.querySelectorAll('input'))if(input!==document.activeElement)input.value=value[key];row.style.setProperty('--range-fill',((value[key]-min)/(max-min)*100)+'%');}
+  if(video){
+    const reference=container.querySelector('[data-effect="alpha"]>span'),style=getComputedStyle(reference),context=document.createElement('canvas').getContext('2d');
+    context.font=style.font;context.letterSpacing=style.letterSpacing;
+    container.style.setProperty('--video-effect-label-width',context.measureText(reference.textContent).width+'px');
+  }
   const strength=$('#media-style-strength');strength.hidden=value.style<3;
-  $('#media-style').previousElementSibling.style.width='';
+  const styleLabel=$('#media-style').previousElementSibling;styleLabel.style.width='';delete styleLabel.dataset.strengthLabel;
   if(value.style>=3){
     if(!strength.firstChild){const row=document.createElement('div');row.className='media-effect';row.innerHTML='<span></span><input class="media-range" type="range" min="0" max="100"><label><input class="media-number" type="number" min="0" max="100">%</label>';for(const input of row.querySelectorAll('input'))input.oninput=event=>patchMedia({strength:Math.max(0,Math.min(100,Number(event.target.value)||0))});strength.append(row);}
     strength.querySelector('span').textContent=mediaStyles[value.style];for(const input of strength.querySelectorAll('input'))if(input!==document.activeElement)input.value=value.strength;
-    $('#media-style').previousElementSibling.style.width=strength.querySelector('span').getBoundingClientRect().width+'px';
+    if(video){styleLabel.dataset.strengthLabel=mediaStyles[value.style];styleLabel.style.width='max-content';}
     strength.style.setProperty('--range-fill',value.strength+'%');
   }
 }
