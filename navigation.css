@@ -1,0 +1,42 @@
+#dialog>#drag{height:56px}
+#dialog>#drag>.tabs{display:none}
+#dialog>#drag>.title{font-size:17px;font-weight:400}
+#dialog #palette-screen>footer{height:36px;margin-top:12px;padding:0 0 12px;border:0;gap:8px}
+#dialog #palette-screen>footer>button{background:#3333330d;border-radius:16px;padding:0 12px;color:#000;white-space:nowrap}
+#background-navigation{display:flex;gap:8px;padding:4px 16px 8px}
+#background-navigation>button{height:28px;padding:0 12px;background:white;border-radius:16px;color:#000}
+#background-navigation>button:hover:not(:disabled),#dialog #palette-screen>footer>button:hover:not(:disabled),.mine-more:hover:not(:disabled){box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}
+#background-navigation>button[hidden],#media-effects[hidden],.media-load-items>button[hidden],.media-collection[hidden],.finder-files>button[hidden],.system-mode[hidden]{display:none}
+#media-load-menu{height:436px}
+#media-load-menu[data-type=video]{width:260px;height:162px;padding-bottom:12px}
+#media-load-menu[data-type=video] .media-load-scroll{width:244px;overflow:hidden}
+#media-load-menu[data-type=video] .media-load-items>button{width:244px}
+.upload-title{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.media-load-heading{padding-left:12px}
+.media-effects-heading{display:flex;align-items:center;justify-content:space-between;height:24px;font-weight:600}
+.media-effects-heading button{width:24px;height:24px;display:grid;place-items:center}
+.media-effects-heading img{width:12px;height:12px}
+/* Blur is a separate white card, after the palette actions. */
+#dialog>.content>#blur-controls{width:358px;height:40px;flex:none;margin:0;padding:8px 12px 8px 14px;border:0;border-radius:8px;background:#fff;gap:8px;position:relative}
+#dialog>.content:has(#palette-screen[hidden])>#blur-controls{display:none}
+#dialog #blur-range{margin:0;flex:1}
+#dialog #blur-value{flex:none;margin:0}
+#dialog #blur-remove{margin-left:-4px;color:#ccc;opacity:1}
+#dialog #blur-remove img{opacity:.55}
+
+#dialog:has(>.content>#blur-controls:not([hidden]))>#background-navigation{padding-left:12px}
+
+/* Pin and unpin share the outlined hover used by the My colors menu. */
+.value-card>.pin:hover:not(:disabled){box-shadow:inset 0 0 0 1px #ccc}
+/* The removal control belongs next to the Effects caption. */
+.media-effects-heading{justify-content:flex-start;font-size:15px;font-weight:600;letter-spacing:-.2115px;gap:0}
+.media-effects-heading .effects-remove{display:grid;place-items:center;width:16px;height:24px;flex:none;color:#ccc;opacity:1}
+.media-effects-heading .effects-remove img{width:10px;height:10px;opacity:.55}
+.media-effects-heading .effects-remove img{transform:translateY(1px)}
+.upload-title>.media-glyph{width:24px;flex:none;text-align:center}
+.value-card>.pin img{filter:brightness(0) saturate(100%) invert(20%)}
+.mine-more::before{background:linear-gradient(#333333,#333333) top/100% 1px no-repeat,linear-gradient(#333333,#333333) center/100% 1px no-repeat,linear-gradient(#333333,#333333) bottom/100% 1px no-repeat}
+/* Color dialogs use the same palette action spacing and button as Background. */
+#media-color-palette-card>footer{height:36px;margin-top:12px;padding:0 0 12px;border:0;gap:8px}
+#media-color-other{background:#3333330d;border-radius:16px;padding:0 12px;color:#000;white-space:nowrap}
+#media-color-other:hover:not(:disabled){box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}

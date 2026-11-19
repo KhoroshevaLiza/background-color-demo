@@ -106,9 +106,9 @@ function toggleSaved(value){
   if(!pinned){
     if(index<0)savedColors.unshift({...value});
   }else{
-    savedColors.splice(index,1);remember(value);
+    savedColors.splice(index,1);
     menuSavedRows=menuSavedRows.filter(item=>colorKey(item)!==colorKey(value));
-    if(!menuHistoryRows.some(item=>colorKey(item)===colorKey(value)))menuHistoryRows.unshift({...value});
+    if(getHistoryColors().some(item=>colorKey(item)===colorKey(value))&&!menuHistoryRows.some(item=>colorKey(item)===colorKey(value)))menuHistoryRows.unshift({...value});
   }
   renderSaved();syncPin();syncTooltip();
   if(activeScreen==='picker')renderPickerHistory();

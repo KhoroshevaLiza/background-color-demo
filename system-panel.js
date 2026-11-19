@@ -89,7 +89,7 @@ function setSystemMediaMode(allowVideo){
  systemPanel.querySelector('[data-system-state="video"]').hidden=!allowVideo;
  $('#tab-media').textContent=allowVideo?'Медиа':'Картинка';
  const title=allowVideo?'Загрузить картинку или видео':'Загрузить';
- $('#media-load-menu .media-load-heading').firstChild.textContent=title;
+ if(!$('.upload-title'))$('#media-load-menu .media-load-heading').firstChild.textContent=title;
  $('#media-load-menu').setAttribute('aria-label',title);
  $('[data-file="video"]').hidden=!allowVideo;
  if(!allowVideo&&finderSelection==='video'){finderSelection=null;$('#finder-open').disabled=true;$('[data-file="video"]').classList.remove('selected');}
