@@ -1,0 +1,32 @@
+#dialog .other-color-icon{display:none}
+#dialog.main-appearance #palette{align-items:center}
+#dialog.main-appearance #open-picker{display:flex;align-items:center;position:relative;flex:none;height:28px;padding:0 12px;border-radius:16px;color:#313e78;background:none;white-space:nowrap;margin:0}
+#dialog.main-appearance[data-other-view=link] #open-picker:hover{box-shadow:none;text-decoration:underline}
+#dialog.main-appearance[data-other-view=chip] #open-picker{background:#3333330d;color:#656c87;height:28px}
+#dialog.main-appearance[data-other-view=circle] #open-picker{padding-left:34px;background:radial-gradient(ellipse at 18% 6%,transparent,#f5f5f5),white}
+#dialog.main-appearance[data-other-view=circle] .other-color-icon{display:block;position:absolute;left:0;top:0;width:28px;height:28px;border:1px solid #d2d6da;border-radius:50%;overflow:hidden}
+#dialog.main-appearance .other-color-icon img{position:absolute;left:-1px;top:-1px;width:28px;height:28px;max-width:none}
+#dialog.main-appearance .main-palette-actions{height:auto;min-height:48px;border-top:1px solid #eaeaea;margin:20px 12px 0;padding:12px 0;gap:16px;display:flex;flex-wrap:wrap;position:relative}
+#dialog.main-appearance .main-palette-actions>button{height:24px;padding:0;background:none;color:#313e78;border-radius:0;white-space:nowrap}
+#dialog.main-appearance .main-palette-actions>button:hover{box-shadow:none;text-decoration:underline}
+#dialog.main-appearance:not(:has(#media-screen:not([hidden])))>#background-navigation{display:none}
+#dialog.main-appearance .main-palette-actions{margin-left:0;margin-right:0}
+#dialog.main-appearance[data-footer-view=chips] .main-palette-actions{border:0;margin-top:12px;padding:0 0 4px;gap:8px}
+#dialog.main-appearance[data-footer-view=chips] #palette-screen{background:linear-gradient(white,white) top/100% calc(100% - 76px) no-repeat}
+#dialog.main-appearance[data-footer-view=chips] .main-palette-actions>button{height:28px;background:#fff;padding:0 12px;border-radius:16px;color:#656c87}
+#dialog.main-appearance[data-footer-view=chips] .main-palette-actions>button:hover{box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}
+#dialog.main-appearance[data-footer-view=links] #background-navigation>button{background:none;border-radius:0;color:#313e78;padding:0;height:24px}
+#dialog.main-appearance[data-footer-view=links] #background-navigation>button:hover{box-shadow:none;text-decoration:underline}
+#dialog.main-appearance[data-footer-view=links] #background-navigation{gap:16px}
+#dialog.main-appearance[data-footer-view=links] .main-palette-actions{justify-content:space-between;flex-wrap:nowrap;gap:0}
+#dialog.main-appearance[data-footer-view=chips] .main-palette-actions{justify-content:flex-start}
+
+#dialog.main-appearance[data-footer-view=chips] #palette-screen{background:#fff;padding-bottom:12px}
+#dialog.main-appearance[data-footer-view=chips]>.content>.main-palette-actions{width:358px;min-height:0;height:auto;margin:0;padding:4px 12px 8px;background:none;border:0;gap:8px}
+#dialog .main-palette-actions[hidden]{display:none}
+#dialog.main-appearance[data-other-view=circle] #open-picker:hover,#dialog.main-appearance[data-other-view=chip] #open-picker:hover{box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}
+/* Override the experimental palette footer rules with equal ID specificity. */
+#dialog.main-appearance[data-footer-view=links] #palette-screen>footer.main-palette-actions{height:auto;min-height:49px;margin:20px 0 0;padding:13px 0 12px;border:0;gap:0;justify-content:space-between;flex-wrap:nowrap}
+#dialog.main-appearance[data-footer-view=links] #palette-screen>footer.main-palette-actions::before{content:'';position:absolute;left:12px;right:12px;top:0;height:1px;background:#eaeaea}
+#dialog.main-appearance[data-footer-view=links] #palette-screen>footer.main-palette-actions>button{height:24px;padding:0;background:none;color:#313e78;border-radius:0;white-space:nowrap;flex:none}
+#dialog.main-appearance[data-footer-view=links] #palette-screen>footer.main-palette-actions>button:hover{background:none;box-shadow:none;text-decoration:underline}

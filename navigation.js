@@ -87,7 +87,7 @@ $('#finder-open').onclick=()=>chooseMediaFile();
 $('#media-load-close').onclick=()=>{$('#media-load-menu').hidden=true;};
 $('#tab-media').onclick=()=>openLoadMenu(draft.media?.type||'photo',backgroundNavigation.querySelector('button'));
 $('#blur-remove').addEventListener('click',syncBackgroundNavigation);
-$('.system-mode').hidden=true;
+$('.system-mode[aria-label="Доступные медиа"]').hidden=true;
 renderEffects();renderMediaScreen(activeScreen);
 // These selections belong to one open background window only.
 const commitWindowMedia=commit;

@@ -31,3 +31,7 @@
 a.system-link{cursor:pointer}
 .system-radio[hidden],.finder-files button[hidden]{display:none}
 .system-panel [hidden]{display:none}
+.system-appearance>.system-caption{padding:0 6px 2px;line-height:15px;color:#656c87}
+.system-appearance>.system-caption:not(:first-child){padding-top:8px}
+.system-appearance>.system-mode{margin:0}
+.system-appearance [data-other-color-view=circle]{flex:none}
