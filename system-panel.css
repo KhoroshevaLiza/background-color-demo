@@ -35,3 +35,5 @@ a.system-link{cursor:pointer}
 .system-appearance>.system-caption:not(:first-child){padding-top:8px}
 .system-appearance>.system-mode{margin:0}
 .system-appearance [data-other-color-view=circle]{flex:none}
+.system-appearance .system-mode button:disabled{cursor:default}
+.system-appearance .system-mode button:disabled:hover{background:none;color:#656c87}

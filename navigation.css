@@ -35,8 +35,32 @@
 .media-effects-heading .effects-remove img{transform:translateY(1px)}
 .upload-title>.media-glyph{width:24px;flex:none;text-align:center}
 .value-card>.pin img{filter:brightness(0) saturate(100%) invert(20%)}
-.mine-more::before{background:linear-gradient(#333333,#333333) top/100% 1px no-repeat,linear-gradient(#333333,#333333) center/100% 1px no-repeat,linear-gradient(#333333,#333333) bottom/100% 1px no-repeat}
+.mine-more::before{background:linear-gradient(#656C87,#656C87) top/100% 1px no-repeat,linear-gradient(#656C87,#656C87) center/100% 1px no-repeat,linear-gradient(#656C87,#656C87) bottom/100% 1px no-repeat}
 /* Color dialogs use the same palette action spacing and button as Background. */
 #media-color-palette-card>footer{height:36px;margin-top:12px;padding:0 0 12px;border:0;gap:8px}
 #media-color-other{background:#3333330d;border-radius:16px;padding:0 12px;color:#000;white-space:nowrap}
 #media-color-other:hover:not(:disabled){box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}
+/* Combined media selection is a screen, not a floating popup. */
+.combined-upload-heading{display:none}
+#media-load-menu[data-type=both]:not(.media-load-popup){position:relative;left:auto!important;top:auto!important;width:358px;height:480px;margin:0 4px 4px;border-radius:8px;box-shadow:none;z-index:auto}
+#media-load-menu[data-type=both]:not(.media-load-popup) .upload-title,#media-load-menu[data-type=both]:not(.media-load-popup) #media-load-close{display:none}
+#media-load-menu[data-type=both]:not(.media-load-popup) .media-load-heading{padding-left:4px;text-transform:none;letter-spacing:normal;color:#000}
+#media-load-menu[data-type=both]:not(.media-load-popup) .combined-upload-heading{display:flex;height:28px;width:100%;flex:none}
+#media-load-menu[data-type=both]:not(.media-load-popup) .media-load-scroll{width:342px}
+#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>.content,#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>#media-screen,#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>#background-navigation{display:none}
+#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden])) .commands .icon[aria-label="Пипетка"]{display:none}
+#media-screen>.media-card:first-child{padding-top:12px}
+#media-screen .media-drill-heading{height:28px;margin-bottom:8px}
+#media-load-menu[data-type=both]:not(.media-load-popup){padding-left:4px;padding-right:4px}
+#media-load-menu[data-type=both]:not(.media-load-popup) .media-load-heading{padding-left:8px}
+#media-load-menu[data-type=both]:not(.media-load-popup) .media-load-scroll,#media-load-menu[data-type=both]:not(.media-load-popup) .media-collection,#media-load-menu[data-type=both]:not(.media-load-popup) .media-collection-group,#media-load-menu[data-type=both]:not(.media-load-popup) .media-load-items button{width:350px}
+#media-load-menu[data-type=both]:not(.media-load-popup) .media-collection-preview,#media-load-menu[data-type=both]:not(.media-load-popup) .media-collection-preview>img,#media-load-menu[data-type=both]:not(.media-load-popup) .media-collection-preview>svg{width:298px}
+
+#media-load-menu.media-load-popup{position:absolute;width:350px;height:474px;margin:0;padding:8px 8px 0;z-index:40;box-shadow:0 0 15px #0000001f,0 0 46px #0000001f}
+#media-load-menu.media-load-popup .combined-upload-heading,#media-load-menu.media-load-popup .upload-title>.media-glyph{display:none}
+#media-load-menu.media-load-popup .upload-title{gap:0}
+#media-load-menu[data-type=both]:not(.media-load-popup){padding-top:12px}
+/* A visual click hint is shown only while the Background window is closed. */
+.editor:has(#dialog[hidden]) #open::after{content:'';position:absolute;right:3px;top:5px;width:6px;height:6px;background:#6cc;border-radius:50%;pointer-events:none}
+/* An empty effects-action footer must not add space below the white card. */
+#background-navigation:not(:has(>button:not([hidden]))){display:none}

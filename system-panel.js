@@ -4,13 +4,9 @@ systemPanel.innerHTML=`
  <div class="system-box"><div class="system-white" role="radiogroup" aria-label="Тип окна">
   <button class="system-radio" role="radio" data-system-type="background" aria-checked="true">Фон</button><button class="system-radio" role="radio" data-system-type="color" aria-checked="false">Цвет</button><button class="system-radio" role="radio" data-system-type="trigger" aria-checked="false">Вызывающий элемент</button>
  </div></div>
- <div class="system-box system-appearance" data-system-section="background" aria-label="Оформление окна Фон">
-  <div class="system-caption">Вид окна</div>
-  <div class="system-mode" role="group" aria-label="Вид окна"><button data-background-view="main" aria-pressed="true">основное</button><button data-background-view="experiment" aria-pressed="false">эксперимент</button></div>
-  <div class="system-caption">Вид кнопки Другой цвет</div>
-  <div class="system-mode" role="group" aria-label="Вид кнопки Другой цвет"><button data-other-color-view="link" aria-pressed="true">ссылка</button><button data-other-color-view="circle" aria-pressed="false">круг с текстом</button><button data-other-color-view="chip" aria-pressed="false">чипса</button></div>
-  <div class="system-caption">Вид кнопок в подвале</div>
-  <div class="system-mode" role="group" aria-label="Вид кнопок в подвале"><button data-footer-view="links" aria-pressed="true">ссылки</button><button data-footer-view="chips" aria-pressed="false">чипсы</button></div>
+ <div class="system-box system-appearance" data-system-section="background" aria-label="Компоновка окна">
+  <div class="system-caption">Компоновка окна</div>
+  <div class="system-mode" role="group" aria-label="Компоновка окна"><button data-window-layout="1" aria-pressed="false" disabled>вариант 1</button><button data-window-layout="2" aria-pressed="true">вариант 2</button><button data-window-layout="3" aria-pressed="false" disabled>вариант 3</button><button data-window-layout="4" aria-pressed="false">вариант 4</button></div>
  </div>
  <div class="system-box" data-system-section="background">
   <div class="system-mode" aria-label="Доступные медиа"><button data-media-mode="video" aria-pressed="true">с видео</button><button data-media-mode="photo" aria-pressed="false">только картинка</button></div>
