@@ -89,3 +89,7 @@
 #dialog.main-appearance[data-layout="4"]>.content>footer.main-palette-actions>button{height:28px;padding:0 12px;border-radius:100px;background:#fff;color:#656c87;white-space:nowrap}
 #dialog.main-appearance[data-layout="4"]>.content>footer.main-palette-actions>button:hover{background:#fff;box-shadow:inset 0 0 0 1px #ccc;text-decoration:none}
 #dialog.main-appearance[data-layout="4"] #open-picker{height:28px;padding:0 12px;background:#fff;color:#656c87;border-radius:100px}
+#dialog[data-layout="1"] #media-screen .media-drill-heading>.back-round{display:none}
+#dialog[data-layout="1"] #background-navigation>[data-navigation=color]{background:#fff;color:#656c87}
+#dialog[data-layout="1"] #media-screen .media-drill-heading{display:none}
+#dialog[data-layout="1"] #media-screen>.media-card:first-child{padding-top:8px}

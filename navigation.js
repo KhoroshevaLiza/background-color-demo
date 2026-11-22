@@ -61,7 +61,7 @@ openLoadMenu=function(type,anchor){
   else uploadMediaType=draft.media?.type||uploadMediaType;
   uploadAnchor=anchor instanceof HTMLElement?anchor:uploadAnchor;
   hideTooltip();$('#media-options-menu').hidden=true;
-  const menu=$('#media-load-menu'),video=uploadMediaType==='video',both=uploadMediaType==='both',popup=uploadAnchor?.id==='media-replace'||uploadAnchor?.dataset.variantThree==='media'||uploadAnchor?.dataset.variantFour==='media';
+  const menu=$('#media-load-menu'),video=uploadMediaType==='video',both=uploadMediaType==='both',popup=uploadAnchor?.id==='media-replace'||uploadAnchor?.dataset.variantThree==='media'||uploadAnchor?.dataset.variantFour==='media'||(uploadAnchor?.dataset.navigation==='media'&&$('#dialog').dataset.layout==='1');
   menu.classList.toggle('media-load-popup',popup);
   uploadTitle.lastChild.textContent=popup?'Загрузить картинку или видео':'Загрузить';
   menu.dataset.type=uploadMediaType;menu.setAttribute('aria-label',both?'Картинка или видео':video?'Загрузить видео':'Загрузить картинку');
@@ -88,7 +88,8 @@ openLoadMenu=function(type,anchor){
       top=source.top+source.height/2-anchorRect.top-(target.top+target.height/2-origin.top);
     }
     placeMediaPopup(menu,uploadAnchor,{left,top});
-    if(uploadAnchor.dataset.variantFour==='media')menu.style.left=(($('#dialog').clientWidth-menu.offsetWidth)/2)+'px';
+    if(uploadAnchor.dataset.variantFour==='media'||(uploadAnchor.dataset.navigation==='media'&&$('#dialog').dataset.layout==='1'))menu.style.left=(($('#dialog').clientWidth-menu.offsetWidth)/2)+'px';
+    if(uploadAnchor.dataset.navigation==='media'&&$('#dialog').dataset.layout==='1')menu.style.top='4px';
   }
 };
 $('#media-replace').onclick=event=>openLoadMenu('both',event.currentTarget);

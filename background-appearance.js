@@ -88,6 +88,11 @@ function applyBackgroundAppearance(){
   }
  }
 
+ if(media&&backgroundAppearance.layout===1){
+  const colorAction=document.createElement('button');colorAction.dataset.navigation='color';colorAction.textContent='Цвет';
+  colorAction.onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
+  backgroundNavigation.prepend(colorAction);
+ }
  if(main&&!media&&backgroundAppearance.layout===1){
   const mediaAction=paletteActions.querySelector('[data-navigation=media]');
   paletteActions.replaceChildren(otherColorButton,...mediaAction?[mediaAction]:[],backgroundMoreButton);hiddenPaletteActions.append(gradientAction,textureAction);
