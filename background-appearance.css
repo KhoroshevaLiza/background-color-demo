@@ -83,7 +83,7 @@
 #dialog.main-appearance[data-layout="4"]>#background-navigation>button{background:#fff;color:#656c87}
 #dialog:is([data-layout="1"],[data-layout="2"]) #background-navigation>[data-navigation=effects]{color:#656c87}
 #dialog.main-appearance[data-layout="4"] #media-effects{width:358px;margin-top:0;padding:8px 12px;border-radius:8px;background:#fff}
-#variant-four-pipette>img{filter:brightness(0) saturate(100%) invert(20%)}
+#variant-four-pipette>img{filter:none}
 #dialog.main-appearance[data-layout="4"] #palette-screen{padding-bottom:12px}
 #dialog.main-appearance[data-layout="4"]>.content>footer.main-palette-actions{width:358px;height:36px;min-height:0;margin:0;padding:4px 12px;border:0;gap:8px;justify-content:flex-start;flex-wrap:nowrap;background:none}
 #dialog.main-appearance[data-layout="4"]>.content>footer.main-palette-actions>button{height:28px;padding:0 12px;border-radius:100px;background:#fff;color:#656c87;white-space:nowrap}

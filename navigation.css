@@ -34,7 +34,7 @@
 .media-effects-heading .effects-remove img{width:10px;height:10px;opacity:.55}
 .media-effects-heading .effects-remove img{transform:translateY(1px)}
 .upload-title>.media-glyph{width:24px;flex:none;text-align:center}
-.value-card>.pin img{filter:brightness(0) saturate(100%) invert(20%)}
+.value-card>.pin img{filter:none}
 .mine-more::before{background:linear-gradient(#656C87,#656C87) top/100% 1px no-repeat,linear-gradient(#656C87,#656C87) center/100% 1px no-repeat,linear-gradient(#656C87,#656C87) bottom/100% 1px no-repeat}
 /* Color dialogs use the same palette action spacing and button as Background. */
 #media-color-palette-card>footer{height:36px;margin-top:12px;padding:0 0 12px;border:0;gap:8px}
