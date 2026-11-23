@@ -1,5 +1,6 @@
 // Presentation variants reuse the existing buttons and their handlers.
 const backgroundAppearance={view:'main',other:'chip',footer:'chips',layout:2};
+const windowNavigationModes={1:'chip',2:'back'};
 const otherColorButton=$('#open-picker'),paletteActions=$('#palette-screen>footer');
 const gradientAction=$('#open-gradient'),textureAction=$('#open-effects');
 paletteActions.classList.add('main-palette-actions');
@@ -42,7 +43,7 @@ $('#dialog>.content>.value-card>.pin').after(variantFourPipette);
 bindScreenEyedropper(variantFourPipette,color=>{if(draft.gradient)changeGradientStop(gradientStop,{color});else setEditingColor(color,editingColor().alpha);update();});
 function applyBackgroundAppearance(){
  const main=backgroundAppearance.view==='main',dialog=$('#dialog'),media=activeScreen==='media'&&draft.media;
- closeBackgroundMore();dialog.dataset.layout=backgroundAppearance.layout;
+ closeBackgroundMore();dialog.dataset.layout=backgroundAppearance.layout;dialog.dataset.mediaNavigation=windowNavigationModes[backgroundAppearance.layout]||'tabs';
  const third=backgroundAppearance.layout===3,fourth=backgroundAppearance.layout===4,internalActions=third||fourth;variantThreeTabs.hidden=!third;variantFourTabs.hidden=!fourth;variantFourPipette.hidden=!fourth;
  for(const button of variantFourTabs.querySelectorAll('button'))button.setAttribute('aria-pressed',String((button.dataset.variantFour==='media')===!!media));
  const effects=$('#media-effects'),mediaCard=$('#media-screen>.media-card');
@@ -57,7 +58,8 @@ function applyBackgroundAppearance(){
   $('#dialog>.content').append(paletteActions);paletteActions.hidden=media||activeScreen!=='palette';
  }else $('#palette-screen').append(paletteActions);
  const settings=systemPanel.querySelector('.system-appearance');
- for(const element of [...settings.children].slice(2))element.hidden=!main;
+ for(const element of settings.querySelectorAll('[data-navigation-control]'))element.hidden=fourth;
+ for(const button of settings.querySelectorAll('[data-window-navigation]'))button.setAttribute('aria-pressed',String(button.dataset.windowNavigation===windowNavigationModes[backgroundAppearance.layout]));
  if(main){
   $('#palette').append(otherColorButton);
   if(!media){
@@ -88,11 +90,12 @@ function applyBackgroundAppearance(){
   }
  }
 
- if(media&&backgroundAppearance.layout===1){
+ if(media&&windowNavigationModes[backgroundAppearance.layout]==='chip'){
   const colorAction=document.createElement('button');colorAction.dataset.navigation='color';colorAction.textContent='Цвет';
   colorAction.onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
   backgroundNavigation.prepend(colorAction);
  }
+ if(main&&!media&&backgroundAppearance.layout===2)paletteActions.prepend(otherColorButton);
  if(main&&!media&&backgroundAppearance.layout===1){
   const mediaAction=paletteActions.querySelector('[data-navigation=media]');
   paletteActions.replaceChildren(otherColorButton,...mediaAction?[mediaAction]:[],backgroundMoreButton);hiddenPaletteActions.append(gradientAction,textureAction);
@@ -106,12 +109,21 @@ syncBackgroundNavigation=function(){
 };
 const renderAppearancePalette=renderBackgroundPalette;
 renderBackgroundPalette=function(...args){renderAppearancePalette(...args);applyBackgroundAppearance();};
-for(const layout of [1,2,3,4]){
+function refreshMediaNavigation(){
+ const loadMenu=$('#media-load-menu'),wasOpen=!loadMenu.hidden,replacing=uploadAnchor?.id==='media-replace';
+ if(wasOpen)loadMenu.hidden=true;
+ syncBackgroundNavigation();
+ if(wasOpen)openLoadMenu('both',replacing?$('#media-replace'):backgroundAppearance.layout===4?variantFourTabs.querySelector('[data-variant-four=media]'):paletteActions.querySelector('[data-navigation=media]'));
+}
+for(const button of systemPanel.querySelectorAll('[data-window-navigation]')){
+ button.disabled=false;button.onclick=()=>{windowNavigationModes[backgroundAppearance.layout]=button.dataset.windowNavigation;refreshMediaNavigation();};
+}
+for(const layout of [1,2,4]){
  const button=systemPanel.querySelector(`[data-window-layout="${layout}"]`);button.disabled=false;
  button.onclick=()=>{
   backgroundAppearance.view='main';backgroundAppearance.other='chip';backgroundAppearance.footer='chips';backgroundAppearance.layout=layout;
   systemPanel.querySelectorAll('[data-window-layout]').forEach(item=>item.setAttribute('aria-pressed',String(Number(item.dataset.windowLayout)===layout)));
-  syncBackgroundNavigation();
+  refreshMediaNavigation();
  };
 }
 syncBackgroundNavigation();

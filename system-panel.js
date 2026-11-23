@@ -6,7 +6,9 @@ systemPanel.innerHTML=`
  </div></div>
  <div class="system-box system-appearance" data-system-section="background" aria-label="Компоновка окна">
   <div class="system-caption">Компоновка окна</div>
-  <div class="system-mode" role="group" aria-label="Компоновка окна"><button data-window-layout="1" aria-pressed="false" disabled>вариант 1</button><button data-window-layout="2" aria-pressed="true">вариант 2</button><button data-window-layout="3" aria-pressed="false" disabled>вариант 3</button><button data-window-layout="4" aria-pressed="false">вариант 4</button></div>
+  <div class="system-mode" role="group" aria-label="Компоновка окна"><button data-window-layout="1" aria-pressed="false" >Три точки</button><button data-window-layout="2" aria-pressed="true">Список</button><button data-window-layout="3" aria-pressed="false" hidden disabled>вариант 3</button><button data-window-layout="4" aria-pressed="false">Тумблер</button></div>
+  <div class="system-caption" data-navigation-control>Навигация для Картинки или видео</div>
+  <div class="system-mode" role="group" aria-label="Навигация для Картинки или видео" data-navigation-control><button data-window-navigation="back" aria-pressed="true">Кнопка назад</button><button data-window-navigation="chip" aria-pressed="false">Чипса</button></div>
  </div>
  <div class="system-box" data-system-section="background">
   <div class="system-mode" aria-label="Доступные медиа"><button data-media-mode="video" aria-pressed="true">с видео</button><button data-media-mode="photo" aria-pressed="false">только картинка</button></div>
