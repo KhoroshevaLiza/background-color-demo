@@ -48,7 +48,7 @@
 #media-load-menu[data-type=both]:not(.media-load-popup) .media-load-scroll{width:342px}
 #dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>.content,#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>#media-screen,#dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>#background-navigation{display:none}
 #dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden])) .commands .icon[aria-label="Пипетка"]{display:none}
-#media-screen>.media-card:first-child{padding-top:12px}
+#media-screen>.media-card:first-child{padding-top:10px}
 #media-screen .media-drill-heading{height:28px;margin-bottom:8px}
 #media-load-menu[data-type=both]:not(.media-load-popup){padding-left:4px;padding-right:4px}
 #media-load-menu[data-type=both]:not(.media-load-popup) .media-load-heading{padding-left:8px}
@@ -58,7 +58,7 @@
 #media-load-menu.media-load-popup{position:absolute;width:350px;height:474px;margin:0;padding:8px 8px 0;z-index:40;box-shadow:0 0 15px #0000001f,0 0 46px #0000001f}
 #media-load-menu.media-load-popup .combined-upload-heading,#media-load-menu.media-load-popup .upload-title>.media-glyph{display:none}
 #media-load-menu.media-load-popup .upload-title{gap:0}
-#media-load-menu[data-type=both]:not(.media-load-popup){padding-top:12px}
+#media-load-menu[data-type=both]:not(.media-load-popup){padding-top:10px}
 /* A visual click hint is shown only while the Background window is closed. */
 .editor:has(#dialog[hidden]) #open::after{content:'';position:absolute;right:3px;top:5px;width:6px;height:6px;background:#6cc;border-radius:50%;pointer-events:none}
 /* An empty effects-action footer must not add space below the white card. */
