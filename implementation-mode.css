@@ -1,0 +1,19 @@
+.system-implementation>.system-mode{margin:0}
+#current-header-tabs{display:flex;gap:2px;padding:1px;margin-left:6px;border-radius:100px;background:#3333330d;flex:none}
+#current-header-tabs[hidden]{display:none}
+#current-header-tabs>button{height:26px;padding:0 12px;border-radius:100px;color:#656c87;font-size:15px;white-space:nowrap}
+#current-header-tabs>button[aria-pressed=true]{background:#fff;color:#000;box-shadow:0 0 6px #0000001a}
+#current-header-tabs>button:hover:not([aria-pressed=true]){background:#3333330d;color:#000}
+#dialog.current-implementation>#background-navigation{display:none}
+#dialog.current-implementation .media-drill-heading,#dialog.current-implementation .media-effects-heading,#dialog.current-implementation .variant-three-media-actions{display:none}
+#dialog.current-implementation #media-screen>.media-card:first-child{padding-top:8px}
+#dialog.current-implementation #palette-screen{padding-bottom:0}
+#dialog.current-implementation #palette-screen>footer.main-palette-actions{display:flex;height:49px;margin:16px 0 0;padding:12px 2px;border-top:1px solid #eee;gap:20px;min-height:0;justify-content:flex-start;flex-wrap:nowrap}
+#dialog.current-implementation #palette-screen>footer.main-palette-actions>button{height:24px;padding:0;background:none;color:#313e78;border-radius:0;white-space:nowrap}
+#dialog.current-implementation #palette-screen>footer.main-palette-actions>button:hover{box-shadow:none;text-decoration:underline}
+#dialog.current-implementation #palette-screen>footer.main-palette-actions .other-color-icon{display:none}
+#dialog.current-implementation #media-effects{width:358px;margin-top:0;padding:8px 12px;border-radius:8px;background:#fff}
+body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-palette-card{padding-bottom:0}
+body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-palette-card>.color-dialog-footer{display:flex;height:49px;min-height:0;width:334px;margin:16px 0 0;padding:12px 2px;border-top:1px solid #eee;gap:0;background:none}
+body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-other{height:24px;padding:0;background:none;color:#313e78;border-radius:0}
+body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-other:hover{box-shadow:none;text-decoration:underline}

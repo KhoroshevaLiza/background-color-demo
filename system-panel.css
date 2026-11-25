@@ -37,3 +37,7 @@ a.system-link{cursor:pointer}
 .system-appearance [data-other-color-view=circle]{flex:none}
 .system-appearance .system-mode button:disabled{cursor:default}
 .system-appearance .system-mode button:disabled:hover{background:none;color:#656c87}
+.system-implementation>.system-mode{margin:0}
+.system-configuration{display:flex;flex-direction:column;gap:16px}
+
+.system-appearance>.system-caption[data-navigation-control]{padding-top:16px}

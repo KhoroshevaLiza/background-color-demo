@@ -1,6 +1,6 @@
 function bindScreenEyedropper(button,onSelect){
 button.disabled=typeof window.EyeDropper!=='function';
-button.title=button.disabled?'Системная пипетка недоступна в этом браузере':'Выбрать цвет на экране';
+button.title='Выбрать цвет с объекта';
 button.setAttribute('aria-pressed','false');
 button.onclick=async()=>{
   if(button.getAttribute('aria-pressed')==='true')return;

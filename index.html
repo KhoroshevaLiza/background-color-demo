@@ -1,20 +1,24 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-demo-initializing>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Выбор фона — демо</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="photo-only.css">
-<link rel="stylesheet" href="textures.css">
-<link rel="stylesheet" href="media.css">
-<link rel="stylesheet" href="media-viewer.css">
-<link rel="stylesheet" href="video-viewer.css">
-<link rel="stylesheet" href="system-panel.css">
-<link rel="stylesheet" href="trigger-demo.css">
-<link rel="stylesheet" href="trigger-fills.css">
-<link rel="stylesheet" href="color-demo.css">
-<link rel="stylesheet" href="format-menu.css">
-<link rel="stylesheet" href="demo-heading.css">
+<link rel="stylesheet" href="style.css?v=ab2346305ee7">
+<link rel="stylesheet" href="photo-only.css?v=5e7ee9eaa9d3">
+<link rel="stylesheet" href="textures.css?v=e2934a18ea91">
+<link rel="stylesheet" href="media.css?v=5878a79c8414">
+<link rel="stylesheet" href="media-viewer.css?v=3bb18af00744">
+<link rel="stylesheet" href="video-viewer.css?v=80157c47d15d">
+<link rel="stylesheet" href="system-panel.css?v=bf67e00e9b39">
+<link rel="stylesheet" href="trigger-demo.css?v=8619527be06b">
+<link rel="stylesheet" href="trigger-fills.css?v=986855a176c9">
+<link rel="stylesheet" href="color-demo.css?v=4d82a45efee5">
+<link rel="stylesheet" href="format-menu.css?v=f5ada1b203b3">
+<link rel="stylesheet" href="demo-heading.css?v=537edb8b8158">
+<link rel="stylesheet" href="navigation.css?v=11b34301abc6">
+<link rel="stylesheet" href="background-appearance.css?v=96c791a13fc5">
+<link rel="stylesheet" href="implementation-mode.css?v=a0bc53206c79">
+<style>[data-demo-initializing] #dialog,[data-demo-initializing] .system-panel{visibility:hidden}</style>
 <section class="demo-heading" aria-label="Описание демо">
   <a class="demo-heading-title" href="http://axure.tensor.ru/StandardsV8/guidelines.html" target="_blank" rel="noopener noreferrer"><img src="assets/demo-heading-back.svg" alt=""><h1>Выбор фона и цвета</h1><span class="demo-heading-version">26.6100</span></a>
   <p class="demo-heading-status">На согласовании. Добавлена загрузка видео и выбор размытия у цвета</p>
@@ -37,7 +41,7 @@
   </div>
   <button id="open" class="open-background" aria-label="Настроить фон" title="Настроить фон"></button>
   <section id="dialog" class="dialog" role="dialog" aria-label="Фон">
-    <header id="drag"><span class="title">Фон</span><div class="tabs"><button id="tab-color" class="selected">Цвет</button><button id="tab-media">Медиа</button></div><div class="commands"><button class="icon" aria-label="Пипетка" disabled><img src="assets/eyedropper.svg" alt=""></button><button id="reset" class="icon" aria-label="Сбросить"><img src="assets/reset.svg" alt=""></button><button id="apply" class="icon success" aria-label="Применить"><img src="assets/save.svg" alt=""></button></div><button id="close" class="close" aria-label="Отменить"><img src="assets/close.svg" alt=""></button></header>
+    <header id="drag"><span class="title">Фон</span><div class="commands"><button class="icon" aria-label="Пипетка" disabled><img src="assets/eyedropper.svg" alt=""></button><button id="reset" class="icon" aria-label="Сбросить"><img src="assets/reset.svg" alt=""></button><button id="apply" class="icon success" aria-label="Применить"><img src="assets/save.svg" alt=""></button></div><button id="close" class="close" aria-label="Отменить"><img src="assets/close.svg" alt=""></button></header>
     <div class="content"><div class="value-card"><div id="preview" class="preview"><span class="preview-fill"><span id="preview-texture" class="texture-overlay" hidden></span></span></div><button class="pin" aria-label="Добавить в Мои цвета" aria-pressed="false"><img src="assets/pin.svg" alt=""></button><div id="gradient-summary" hidden></div><div class="fields"><span class="format">HEX<img src="assets/arrow.svg" alt=""></span><span class="hex-field"><span aria-hidden="true">#</span><input id="hex" aria-label="HEX цвета" value="FFFBE3" placeholder="FFFFFF" maxlength="6"></span><label><input id="alpha" aria-label="Непрозрачность" type="number" min="0" max="100" value="100">%</label></div></div><div id="palette-screen" class="palette-card"><div id="mine-block" hidden><div class="color-group-title">Мои</div><div id="mine" class="palette"></div><div class="color-group-title palette-title">Палитра</div></div><div id="palette" class="palette"></div><div id="blur-controls" class="blur-controls" hidden><span>Размытие</span><input id="blur-range" type="range" min="0" max="5" step="1" value="0" aria-label="Размытие"><input id="blur-value" type="number" min="0" max="5" step="1" value="0" aria-label="Значение размытия"><button id="blur-remove" aria-label="Удалить размытие"><img src="assets/close.svg" alt=""></button></div><footer><button id="open-picker">Другой цвет</button><button id="open-gradient">Градиент</button><button id="open-effects">Эффекты</button></footer></div></div>
     <section id="picker-screen" class="picker-card" hidden aria-label="Другой цвет">
   <div class="picker-heading"><button id="picker-back" aria-label="Вернуться к палитре"><img src="assets/picker-back.svg" alt=""></button><span>Другой цвет</span></div>
@@ -71,23 +75,22 @@
 <section id="media-crop-screen" hidden role="dialog" aria-label="Кадрирование"><img id="crop-photo" src="assets/photo.png" alt="Фото для кадрирования"><div class="crop-frame"><i></i><i></i><i></i><i></i></div><img class="crop-tools" src="assets/crop-tools.png" alt=""><img class="crop-zoom" src="assets/crop-zoom.png" alt=""><button id="crop-apply" class="success" aria-label="Сохранить кадрирование"><img src="assets/save.svg" alt=""></button><button id="crop-cancel" aria-label="Отменить кадрирование"><img src="assets/crop-close.png" alt=""></button></section>
 </main>
 <div id="color-tooltip" class="color-tooltip" role="tooltip" hidden><span id="tooltip-value"></span><button id="tooltip-pin" aria-label="Добавить в Мои цвета"><img id="tooltip-pin-icon" src="assets/pin.svg" alt=""></button></div>
-<script src="app.js"></script>
-<script src="photo-source.js"></script>
-<script src="media.js"></script>
-<script src="media-collection.js"></script>
-<script src="media-settings.js"></script>
-<script src="media-color.js"></script>
-<script src="color-heading.js"></script>
-<script src="media-viewer.js"></script>
-<script src="video-viewer.js"></script>
-<script src="video-preview.js"></script>
-<script src="eyedropper.js"></script>
-<script src="system-panel.js"></script>
-<script src="trigger-demo.js"></script>
-<script src="color-demo.js"></script>
-<script src="format-menu.js"></script>
-<link rel="stylesheet" href="navigation.css?v=7bc7d42">
-<script src="navigation.js"></script>
-<link rel="stylesheet" href="background-appearance.css?v=7bc7d42">
-<script src="background-appearance.js"></script>
+<script src="app.js?v=0a792fd80d09"></script>
+<script src="photo-source.js?v=6a7acd1ded1d"></script>
+<script src="media.js?v=74c767fe56d0"></script>
+<script src="media-collection.js?v=9addc0236dd3"></script>
+<script src="media-settings.js?v=627ead46cd8c"></script>
+<script src="media-color.js?v=dc2fefc1f189"></script>
+<script src="color-heading.js?v=89b9493a4828"></script>
+<script src="media-viewer.js?v=cfd952a97c65"></script>
+<script src="video-viewer.js?v=2918d7326a9b"></script>
+<script src="video-preview.js?v=68cbe238f8fa"></script>
+<script src="eyedropper.js?v=831585cc749b"></script>
+<script src="system-panel.js?v=1f2ed8cbc6de"></script>
+<script src="trigger-demo.js?v=ca0cf5fe1c77"></script>
+<script src="color-demo.js?v=076d6d8cfa42"></script>
+<script src="format-menu.js?v=5dab1893e327"></script>
+<script src="navigation.js?v=5b757487add7"></script>
+<script src="background-appearance.js?v=d229ba63bc4d"></script>
+<script src="implementation-mode.js?v=71fdaa92bae7"></script>
 </html>

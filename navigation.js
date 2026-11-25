@@ -27,11 +27,11 @@ function syncBackgroundNavigation(){
         else openLoadMenu(action,button);
         return;
       }
-      if(action==='color'){retainWindowMedia();$('#tab-color').click();return;}
+      if(action==='color'){retainWindowMedia();showColorSettings();return;}
       if(action==='blur'){$('#choose-blur').click();syncBackgroundNavigation();return;}
       draft.media.effectsEnabled=true;renderMediaScreen('media');
     };
-    if(action==='effects')button.hidden=!!draft.media.effectsEnabled;
+    if(action==='effects')button.hidden=draft.media.type==='video'||!!draft.media.effectsEnabled;
     backgroundNavigation.append(button);
   }
 }
@@ -97,7 +97,6 @@ const chooseFilteredMedia=chooseMediaFile;
 chooseMediaFile=function(){if(uploadMediaType!=='both'&&finderSelection!==uploadMediaType)return;chooseFilteredMedia();};
 $('#finder-open').onclick=()=>chooseMediaFile();
 $('#media-load-close').onclick=()=>{$('#media-load-menu').hidden=true;};
-$('#tab-media').onclick=()=>openLoadMenu(draft.media?.type||'photo',backgroundNavigation.querySelector('button'));
 $('#blur-remove').addEventListener('click',syncBackgroundNavigation);
 $('.system-mode[aria-label="Доступные медиа"]').hidden=true;
 renderEffects();renderMediaScreen(activeScreen);
@@ -115,4 +114,4 @@ combinedUploadHeading.querySelector('button').onclick=()=>{$('#media-load-menu')
 const mediaHeading=document.createElement('div');mediaHeading.className='media-drill-heading picker-heading';
 mediaHeading.innerHTML='<button class="back-round" aria-label="Назад к цвету"><img src="assets/picker-back.svg" alt=""></button><span>Картинка или видео</span>';
 $('#media-screen>.media-card').prepend(mediaHeading);
-mediaHeading.querySelector('button').onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
+mediaHeading.querySelector('button').onclick=()=>{retainWindowMedia();closeMediaOverlays();showColorSettings();};

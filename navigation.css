@@ -1,5 +1,4 @@
 #dialog>#drag{height:56px}
-#dialog>#drag>.tabs{display:none}
 #dialog>#drag>.title{font-size:17px;font-weight:400}
 #dialog #palette-screen>footer{height:36px;margin-top:12px;padding:0 0 12px;border:0;gap:8px}
 #dialog #palette-screen>footer>button{background:#3333330d;border-radius:16px;padding:0 12px;color:#000;white-space:nowrap}
@@ -63,4 +62,6 @@
 /* A visual click hint is shown only while the Background window is closed. */
 .editor:has(#dialog[hidden]) #open::after{content:'';position:absolute;right:3px;top:5px;width:6px;height:6px;background:#6cc;border-radius:50%;pointer-events:none}
 /* An empty effects-action footer must not add space below the white card. */
+#background-navigation:not(:has(>button:not([hidden]))){display:none}
+/* No empty action strip below video settings. */
 #background-navigation:not(:has(>button:not([hidden]))){display:none}

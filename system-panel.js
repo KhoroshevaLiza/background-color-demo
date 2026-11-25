@@ -4,11 +4,16 @@ systemPanel.innerHTML=`
  <div class="system-box"><div class="system-white" role="radiogroup" aria-label="Тип окна">
   <button class="system-radio" role="radio" data-system-type="background" aria-checked="true">Фон</button><button class="system-radio" role="radio" data-system-type="color" aria-checked="false">Цвет</button><button class="system-radio" role="radio" data-system-type="trigger" aria-checked="false">Вызывающий элемент</button>
  </div></div>
- <div class="system-box system-appearance" data-system-section="background" aria-label="Компоновка окна">
+ <div class="system-box system-configuration">
+ <div class="system-implementation" aria-label="Версия компонента">
+  <div class="system-mode" role="group" aria-label="Версия компонента"><button data-implementation="improved" aria-pressed="true">Доработки</button><button data-implementation="current" aria-pressed="false">Как сейчас</button></div>
+ </div>
+ <div class="system-appearance" data-system-section="background" aria-label="Компоновка окна">
   <div class="system-caption">Компоновка окна</div>
   <div class="system-mode" role="group" aria-label="Компоновка окна"><button data-window-layout="1" aria-pressed="false" >Три точки</button><button data-window-layout="2" aria-pressed="true">Список</button><button data-window-layout="3" aria-pressed="false" hidden disabled>вариант 3</button><button data-window-layout="4" aria-pressed="false">Тумблер</button></div>
   <div class="system-caption" data-navigation-control>Навигация для Картинки или видео</div>
   <div class="system-mode" role="group" aria-label="Навигация для Картинки или видео" data-navigation-control><button data-window-navigation="back" aria-pressed="true">Кнопка назад</button><button data-window-navigation="chip" aria-pressed="false">Чипса</button></div>
+ </div>
  </div>
  <div class="system-box" data-system-section="background">
   <div class="system-mode" aria-label="Доступные медиа"><button data-media-mode="video" aria-pressed="true">с видео</button><button data-media-mode="photo" aria-pressed="false">только картинка</button></div>
@@ -93,7 +98,6 @@ function setSystemMediaMode(allowVideo){
  $('.editor').classList.toggle('photo-only-mode',!allowVideo);
  systemPanel.querySelectorAll('[data-media-mode]').forEach(button=>button.setAttribute('aria-pressed',String((button.dataset.mediaMode==='video')===allowVideo)));
  systemPanel.querySelector('[data-system-state="video"]').hidden=!allowVideo;
- $('#tab-media').textContent=allowVideo?'Медиа':'Картинка';
  const title=allowVideo?'Загрузить картинку или видео':'Загрузить';
  if(!$('.upload-title'))$('#media-load-menu .media-load-heading').firstChild.textContent=title;
  $('#media-load-menu').setAttribute('aria-label',title);
@@ -112,6 +116,8 @@ function selectSystemType(type){
  systemPanel.querySelectorAll('[data-system-type]').forEach(button=>button.setAttribute('aria-checked',String(button.dataset.systemType===type)));
  systemPanel.querySelectorAll('[data-system-section]').forEach(section=>section.hidden=section.dataset.systemSection!==type);
  systemPanel.querySelector('.system-contacts').hidden=type==='trigger';
+ systemPanel.querySelector('.system-implementation').hidden=type==='trigger';
+ if(typeof syncImplementationMode==='function')syncImplementationMode();
  if(returningToBackground&&systemState==='first'){
   hideFirstEntryCollections();$('#mine-menu').hidden=true;hideTooltip();refreshSystemCollections();
  }

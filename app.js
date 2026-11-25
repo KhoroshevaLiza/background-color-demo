@@ -256,7 +256,7 @@ function commit({fromPalette=false}={}){
 }
 function renderBackgroundPalette(values=colors){
   $('#palette').replaceChildren();
-  for(const color of values){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit({fromPalette:true});};$('#palette').append(b);}
+  for(const color of values.filter(color=>color!=='#FFE3EC')){const b=document.createElement('button');b.className='swatch';b.style.background=color||'white';attachTooltip(b,{color,alpha:100});if(!color)b.classList.add('no-color');b.onclick=()=>{draft={color,alpha:100};commit({fromPalette:true});};$('#palette').append(b);}
 }
 renderBackgroundPalette();
 $('#apply').onclick=commit;$('#close').onclick=()=>{draft={...snapshot};update();$('#dialog').hidden=true;};$('#reset').onclick=()=>{draft={...snapshot};if((activeScreen==='gradient-editor'&&!draft.gradient)||(activeScreen==='media'&&!draft.media))setScreen('palette');update();};$('#open').onclick=()=>{pickerHistoryPinned.clear();snapshot={...applied};draft={...applied};setScreen(applied.mode==='media'?'media':'palette');update();$('#dialog').hidden=false;};

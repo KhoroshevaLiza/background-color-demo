@@ -34,8 +34,6 @@ function renderMediaScreen(screen){
   const media=screen==='media';
   $('#media-screen').hidden=!media||!draft.media;
   $('.value-card').hidden=media;
-  $('#tab-media').classList.toggle('selected',media);
-  $('#tab-color').classList.toggle('selected',!media);
   $('.commands .icon[aria-label="Пипетка"]').hidden=media;
   if(!media){closeMediaOverlays();return;}
   if(!draft.media)return;
@@ -113,8 +111,7 @@ function renderAppliedMedia(){
   return true;
 }
 function openLoadMenu(){hideTooltip();$('#media-options-menu').hidden=true;$('#media-load-menu').hidden=false;$('#media-load-scroll').scrollTop=0;}
-$('#tab-media').onclick=()=>{if(!draft.media){openLoadMenu();return;}draft.mode='media';setScreen('media');};
-$('#tab-color').onclick=()=>{draft.mode='color';setScreen('palette');update();};
+function showColorSettings(){draft.mode='color';setScreen('palette');update();}
 $('#media-load-close').onclick=()=>{$('#media-load-menu').hidden=true;if(!draft.media)setScreen('palette');};
 $('#media-computer').onclick=()=>{finderSelection=null;$('#finder-open').disabled=true;document.querySelectorAll('[data-file]').forEach(button=>button.classList.remove('selected'));$('#media-load-menu').hidden=true;$('#media-finder').hidden=false;};
 $('#media-replace').onclick=openLoadMenu;

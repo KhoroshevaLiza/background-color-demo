@@ -26,7 +26,7 @@ const variantThreeTabs=document.createElement('nav');variantThreeTabs.id='varian
 variantThreeTabs.innerHTML='<button data-variant-three="color" aria-pressed="true">Цвет</button><button data-variant-three="media" aria-pressed="false">Картинка или видео</button>';
 $('#dialog').append(variantThreeTabs);
 const variantThreeMediaActions=document.createElement('div');variantThreeMediaActions.className='variant-three-media-actions';$('#media-screen>.media-card').append(variantThreeMediaActions);
-variantThreeTabs.querySelector('[data-variant-three=color]').onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
+variantThreeTabs.querySelector('[data-variant-three=color]').onclick=()=>{retainWindowMedia();closeMediaOverlays();showColorSettings();};
 function activateWindowMedia(anchor){
  retainWindowMedia();const selected=windowMediaSelections.get(lastWindowMediaType);
  if(selected){closeMediaOverlays();draft.media=structuredClone(selected);draft.mode='media';setScreen('media');}
@@ -36,12 +36,13 @@ variantThreeTabs.querySelector('[data-variant-three=media]').onclick=event=>acti
 const variantFourTabs=document.createElement('div');variantFourTabs.id='variant-four-tabs';variantFourTabs.hidden=true;variantFourTabs.setAttribute('role','group');variantFourTabs.setAttribute('aria-label','Тип фона');
 variantFourTabs.innerHTML='<button data-variant-four="color" aria-pressed="true">Цвет</button><button data-variant-four="media" aria-pressed="false">Картинка или видео</button>';
 $('#drag>.title').after(variantFourTabs);
-variantFourTabs.querySelector('[data-variant-four=color]').onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
+variantFourTabs.querySelector('[data-variant-four=color]').onclick=()=>{retainWindowMedia();closeMediaOverlays();showColorSettings();};
 variantFourTabs.querySelector('[data-variant-four=media]').onclick=event=>activateWindowMedia(event.currentTarget);
 const variantFourPipette=document.createElement('button');variantFourPipette.id='variant-four-pipette';variantFourPipette.className='variant-four-pipette';variantFourPipette.hidden=true;variantFourPipette.setAttribute('aria-label','Пипетка');variantFourPipette.innerHTML='<img src="assets/eyedropper-small.svg" alt="">';
 $('#dialog>.content>.value-card>.pin').after(variantFourPipette);
 bindScreenEyedropper(variantFourPipette,color=>{if(draft.gradient)changeGradientStop(gradientStop,{color});else setEditingColor(color,editingColor().alpha);update();});
 function applyBackgroundAppearance(){
+ if(typeof isCurrentImplementation==='function'&&isCurrentImplementation()){renderCurrentImplementation();return;}
  const main=backgroundAppearance.view==='main',dialog=$('#dialog'),media=activeScreen==='media'&&draft.media;
  closeBackgroundMore();dialog.dataset.layout=backgroundAppearance.layout;dialog.dataset.mediaNavigation=windowNavigationModes[backgroundAppearance.layout]||'tabs';
  const third=backgroundAppearance.layout===3,fourth=backgroundAppearance.layout===4,internalActions=third||fourth;variantThreeTabs.hidden=!third;variantFourTabs.hidden=!fourth;variantFourPipette.hidden=!fourth;
@@ -81,18 +82,18 @@ function applyBackgroundAppearance(){
    const effectsButton=backgroundNavigation.querySelector('[data-navigation=effects]');
    variantThreeMediaActions.replaceChildren(...third&&effectsButton?[effectsButton]:[]);
    if(draft.media.effectsEnabled){if(third)mediaCard.append(effects);else $('#media-screen').append(effects);variantThreeMediaActions.hidden=true;}
-   else{$('#media-screen').append(effects);variantThreeMediaActions.hidden=!third;mediaCard.append(variantThreeMediaActions);}
+   else{$('#media-screen').append(effects);variantThreeMediaActions.hidden=!third||draft.media.type==='video';mediaCard.append(variantThreeMediaActions);}
   }else{
    if(fourth)$('#dialog>.content').append(paletteActions);else $('#palette-screen').append(paletteActions);
    paletteActions.hidden=activeScreen!=='palette';
-   paletteActions.replaceChildren(otherColorButton,gradientAction,textureAction);
+   paletteActions.replaceChildren(...fourth?[variantFourPipette]:[],otherColorButton,gradientAction,textureAction);
    variantThreeMediaActions.replaceChildren();
   }
  }
 
  if(media&&windowNavigationModes[backgroundAppearance.layout]==='chip'){
   const colorAction=document.createElement('button');colorAction.dataset.navigation='color';colorAction.textContent='Цвет';
-  colorAction.onclick=()=>{retainWindowMedia();closeMediaOverlays();$('#tab-color').click();};
+  colorAction.onclick=()=>{retainWindowMedia();closeMediaOverlays();showColorSettings();};
   backgroundNavigation.prepend(colorAction);
  }
  if(main&&!media&&backgroundAppearance.layout===2)paletteActions.prepend(otherColorButton);
