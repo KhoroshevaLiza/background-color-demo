@@ -17,3 +17,4 @@ body.implementation-current #media-color-dialog.standalone-color-dialog #media-c
 body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-palette-card>.color-dialog-footer{display:flex;height:49px;min-height:0;width:334px;margin:16px 0 0;padding:12px 2px;border-top:1px solid #eee;gap:0;background:none}
 body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-other{height:24px;padding:0;background:none;color:#313e78;border-radius:0}
 body.implementation-current #media-color-dialog.standalone-color-dialog #media-color-other:hover{box-shadow:none;text-decoration:underline}
+#dialog.current-implementation #media-screen>.media-card:first-child{padding-top:12px}

@@ -96,3 +96,5 @@
 #dialog.main-appearance[data-layout="2"] #open-picker{height:28px;padding:0 12px;background:#fff;color:#656c87;border-radius:100px}
 
 #dialog.main-appearance[data-layout="4"]>.content>footer.main-palette-actions>#variant-four-pipette{margin:0;padding:0;width:28px;height:28px;flex:none;border-radius:50%;background:#fff;display:grid;place-items:center}
+/* Media previews without a drill-down heading start 12px below the card edge. */
+#dialog[data-media-navigation="chip"] #media-screen>.media-card:first-child,#dialog.main-appearance:is([data-layout="3"],[data-layout="4"]) #media-screen>.media-card:first-child{padding-top:12px}

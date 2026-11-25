@@ -50,3 +50,7 @@
 #media-color-dialog.color-variable-dialog header .commands{flex:none}
 .color-variable-row>span:first-of-type{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .color-variable-row .color-variable-code{white-space:nowrap;flex:none}
+/* Picker-only Color editors share one continuous white surface. */
+#media-color-dialog.standalone-color-dialog.color-picker-only>.content{padding-bottom:0}
+#media-color-dialog.standalone-color-dialog.color-picker-only>.content>.value-card{border-radius:8px 8px 0 0}
+#media-color-dialog.standalone-color-dialog.color-picker-only>#media-color-picker{padding-top:12px;border-radius:0 0 8px 8px}
