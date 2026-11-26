@@ -26,7 +26,7 @@ function renderCurrentImplementation(){
 function syncImplementationMode(){
  const current=isCurrentImplementation(),type=systemPanel.querySelector('[data-system-type][aria-checked=true]').dataset.systemType;
  document.body.classList.toggle('implementation-current',current);
- systemPanel.querySelector('.system-configuration').hidden=type==='trigger';
+ systemPanel.querySelector('.system-configuration').hidden=true;
  systemPanel.querySelector('.system-implementation').hidden=type==='trigger';
  systemPanel.querySelector('.system-appearance').hidden=type!=='background'||current;
  systemPanel.querySelectorAll('[data-implementation]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.implementation===implementationMode)));
@@ -34,7 +34,8 @@ function syncImplementationMode(){
  currentHeaderTabs.hidden=!current;
  if(!current)$('#dialog').classList.remove('current-implementation');
  const footer=mediaColorDialog.querySelector('.color-dialog-footer');
- if(footer&&colorDialogOptions?.standalone){
+ mediaColorDialog.classList.toggle('modern-color-dialog',!current);
+ if(footer&&colorDialogOptions){
   if(current)$('#media-color-palette-card').append(footer);else mediaColorDialog.querySelector('.content').append(footer);
  }
 }

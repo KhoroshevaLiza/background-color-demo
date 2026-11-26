@@ -57,13 +57,13 @@
 #dialog:has(#media-load-menu[data-type=both]:not(.media-load-popup):not([hidden]))>#variant-three-tabs{display:none}
 #dialog.main-appearance:is([data-layout="3"],[data-layout="4"]) #palette-screen>footer.main-palette-actions>button,#dialog.main-appearance:is([data-layout="3"],[data-layout="4"]) .variant-three-media-actions>button{background:#3333330d}
 /* Standalone Color windows share variant 1's white footer chip. */
-#media-color-dialog.standalone-color-dialog #media-color-palette-card{padding-bottom:12px}
-#media-color-dialog.standalone-color-dialog .color-dialog-footer{height:40px;min-height:0;width:358px;margin:0;padding:4px 12px 8px;border:0;gap:8px;background:none}
-#media-color-dialog.standalone-color-dialog #media-color-other{height:28px;padding:0 12px;background:#fff;color:#656c87;border-radius:100px}
-#media-color-dialog.standalone-color-dialog:has(#media-color-palette-card[hidden]) .color-dialog-footer{display:none}
+#media-color-dialog:is(.standalone-color-dialog,.modern-color-dialog) #media-color-palette-card{padding-bottom:12px}
+#media-color-dialog:is(.standalone-color-dialog,.modern-color-dialog) .color-dialog-footer{height:40px;min-height:0;width:358px;margin:0;padding:4px 12px 8px;border:0;gap:8px;background:none}
+#media-color-dialog:is(.standalone-color-dialog,.modern-color-dialog) #media-color-other{height:28px;padding:0 12px;background:#fff;color:#656c87;border-radius:100px}
+#media-color-dialog:is(.standalone-color-dialog,.modern-color-dialog):has(#media-color-palette-card[hidden]) .color-dialog-footer{display:none}
 /* The content wrapper already supplies the other 4px of the bottom inset. */
 #dialog.main-appearance[data-layout="1"]>.content>.main-palette-actions,#dialog.main-appearance[data-layout="2"]>.content>.main-palette-actions{padding-bottom:4px}
-#media-color-dialog.standalone-color-dialog .color-dialog-footer{height:36px;padding-bottom:4px}
+#media-color-dialog:is(.standalone-color-dialog,.modern-color-dialog) .color-dialog-footer{height:36px;padding-bottom:4px}
 .system-appearance .system-mode[aria-label="Компоновка окна"]>button{padding:0 4px}
 #variant-four-tabs{display:flex;gap:2px;padding:1px;margin-left:6px;border-radius:100px;background:#3333330d;flex:none}
 #variant-four-tabs[hidden],#variant-four-pipette[hidden]{display:none}

@@ -1,6 +1,6 @@
 // Presentation variants reuse the existing buttons and their handlers.
 const backgroundAppearance={view:'main',other:'chip',footer:'chips',layout:2};
-let sharedMediaNavigation='back';
+let sharedMediaNavigation='chip';
 const otherColorButton=$('#open-picker'),paletteActions=$('#palette-screen>footer');
 const gradientAction=$('#open-gradient'),textureAction=$('#open-effects');
 paletteActions.classList.add('main-palette-actions');

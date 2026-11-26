@@ -1,6 +1,9 @@
 /* Shared bottom navigation for the background editor. */
 // Keep blur in its own card below the palette actions.
 $('#palette-screen').after($('#blur-controls'));
+const colorEffectsHeading=document.createElement('div');colorEffectsHeading.className='media-effects-heading';colorEffectsHeading.innerHTML='<span>Эффекты</span>';
+const colorEffectsRow=document.createElement('div');colorEffectsRow.className='color-effects-row';
+colorEffectsRow.append(...$('#blur-controls').childNodes);colorEffectsHeading.append(colorEffectsRow.querySelector('#blur-remove'));$('#blur-controls').append(colorEffectsHeading,colorEffectsRow);
 const backgroundNavigation=document.createElement('nav');
 backgroundNavigation.id='background-navigation';backgroundNavigation.setAttribute('aria-label','Тип фона');
 $('#dialog').append(backgroundNavigation);
@@ -31,7 +34,7 @@ function syncBackgroundNavigation(){
       if(action==='blur'){$('#choose-blur').click();syncBackgroundNavigation();return;}
       draft.media.effectsEnabled=true;renderMediaScreen('media');
     };
-    if(action==='effects')button.hidden=draft.media.type==='video'||!!draft.media.effectsEnabled;
+    if(action==='effects')button.hidden=!!draft.media.effectsEnabled;
     backgroundNavigation.append(button);
   }
 }
@@ -43,7 +46,7 @@ renderMediaScreen=function(screen){
     const effects=$('#media-effects');effects.hidden=!draft.media.effectsEnabled;
     if(!effects.querySelector('.media-effects-heading')){
       const heading=document.createElement('div');heading.className='media-effects-heading';heading.innerHTML='<span>Эффекты</span>';const remove=$('#blur-remove').cloneNode(true);remove.removeAttribute('id');remove.className='effects-remove';remove.setAttribute('aria-label','Удалить эффекты');heading.append(remove);
-      heading.querySelector('button').onclick=()=>{const defaults=defaultMedia(draft.media.type);for(const key of ['alpha','blur','contrast','saturation','temperature'])draft.media[key]=defaults[key];draft.media.effectsEnabled=false;renderMediaScreen('media');};effects.prepend(heading);
+      heading.querySelector('button').onclick=()=>{const defaults=defaultMedia(draft.media.type);for(const key of ['alpha','blur','contrast','saturation','temperature','style','strength'])draft.media[key]=defaults[key];delete draft.media.styleColor;delete draft.media.styleAlpha;draft.media.effectsEnabled=false;renderMediaScreen('media');};effects.prepend(heading);heading.after(...mediaStyleControls);
     }
   }
   syncBackgroundNavigation();

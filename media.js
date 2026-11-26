@@ -1,4 +1,7 @@
 let finderSelection=null,pendingCropMedia=null;
+const mediaStyleControls=[$('#media-style').closest('.media-property'),$('#media-style-color-row'),$('#media-style-strength')];
+const mediaColorEditor=document.createElement('div');mediaColorEditor.className='media-color-editor';
+$('#media-style-color-row').append(mediaColorEditor);mediaColorEditor.append($('#media-style-color'),$('#media-style-color-reset'));
 const mediaStyles=['Оригинал','Горизонтальный градиент','Вертикальный градиент','Затемнение','Осветление'];
 const defaultMedia=type=>({type,style:0,fit:'Кадрировать',position:'По центру',alpha:100,blur:0,contrast:100,saturation:100,temperature:0,strength:50});
 function mediaFilter(value,target){
@@ -64,10 +67,10 @@ function renderMediaScreen(screen){
 function patchMedia(patch){draft.media={...draft.media,...patch};renderMediaScreen('media');}
 function renderMediaEffects(){
   const value=draft.media,video=value.type==='video';
-  const effects=[['alpha','Прозрачность',0,100,'%'],['blur','Размытие',0,5,''],...video?[]:[['contrast','Контраст',0,200,'%'],['saturation','Насыщенность',0,200,'%'],['temperature','Температура',-50,50,'']]];
+  const effects=video?[]:[['alpha','Прозрачность',0,100,'%'],['blur','Размытие',0,5,''],['contrast','Контраст',0,200,'%'],['saturation','Насыщенность',0,200,'%'],['temperature','Температура',-50,50,'']];
   const container=$('#media-effects');
   if(container.dataset.type!==value.type){
-    container.replaceChildren();container.dataset.type=value.type;
+    container.replaceChildren(...mediaStyleControls);container.dataset.type=value.type;
     for(const [key,label,min,max,suffix]of effects){
       const row=document.createElement('div');row.className='media-effect';row.dataset.effect=key;
       row.innerHTML=`<span>${label}</span><input class="media-range" type="range" min="${min}" max="${max}" step="1" aria-label="${label}"><label><input class="media-number" type="number" min="${min}" max="${max}" step="1" aria-label="Значение: ${label}">${suffix}</label>`;
@@ -76,19 +79,18 @@ function renderMediaEffects(){
     }
   }
   for(const [key,,min,max]of effects){const row=container.querySelector(`[data-effect="${key}"]`);for(const input of row.querySelectorAll('input'))if(input!==document.activeElement)input.value=value[key];row.style.setProperty('--range-fill',((value[key]-min)/(max-min)*100)+'%');}
-  if(video){
-    const reference=container.querySelector('[data-effect="alpha"]>span'),style=getComputedStyle(reference),context=document.createElement('canvas').getContext('2d');
-    context.font=style.font;context.letterSpacing=style.letterSpacing;
-    container.style.setProperty('--video-effect-label-width',context.measureText(reference.textContent).width+'px');
-  }
   const strength=$('#media-style-strength');strength.hidden=value.style<3;
   const styleLabel=$('#media-style').previousElementSibling;styleLabel.style.width='';delete styleLabel.dataset.strengthLabel;
   if(value.style>=3){
     if(!strength.firstChild){const row=document.createElement('div');row.className='media-effect';row.innerHTML='<span></span><input class="media-range" type="range" min="0" max="100"><label><input class="media-number" type="number" min="0" max="100">%</label>';for(const input of row.querySelectorAll('input'))input.oninput=event=>patchMedia({strength:Math.max(0,Math.min(100,Number(event.target.value)||0))});strength.append(row);}
     strength.querySelector('span').textContent=mediaStyles[value.style];for(const input of strength.querySelectorAll('input'))if(input!==document.activeElement)input.value=value.strength;
-    if(video){styleLabel.dataset.strengthLabel=mediaStyles[value.style];styleLabel.style.width='max-content';}
     strength.style.setProperty('--range-fill',value.strength+'%');
   }
+  // All effect rows share the widest label, followed by an eight-pixel gap.
+  const context=document.createElement('canvas').getContext('2d'),labelStyle=getComputedStyle(styleLabel);
+  context.font=labelStyle.font;context.letterSpacing=labelStyle.letterSpacing;
+  const labels=['Стиль',...effects.map(effect=>effect[1]),...value.style>=3?[mediaStyles[value.style]]:[]];
+  container.style.setProperty('--effects-label-width',(Math.max(...labels.map(label=>context.measureText(label).width))+8)+'px');
 }
 function renderAppliedMedia(){
   const host=$('#applied-media');

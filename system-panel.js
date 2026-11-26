@@ -24,6 +24,13 @@ systemPanel.innerHTML=`
    <button class="system-radio nested" role="radio" data-system-state="saved" aria-checked="false">Есть история. Есть свои</button>
    <button class="system-radio" role="radio" data-system-state="max" aria-checked="false">Максимальное</button>
   </div>
+  <div class="system-caption">Функционал</div>
+  <div class="system-white system-functionality" aria-label="Функционал фона">
+   <label><input type="checkbox" data-background-feature="photo" checked><span>Картинка</span></label>
+   <label><input type="checkbox" data-background-feature="video" checked><span>Видео</span></label>
+   <label><input type="checkbox" data-background-feature="texture" checked><span>Текстура</span></label>
+   <label><input type="checkbox" data-background-feature="effects" checked><span>Эффекты (для Цвет)</span></label>
+  </div>
   <div class="system-caption">Сценарии</div>
   <div class="system-white" role="radiogroup" aria-label="Сценарий фона">
    <button class="system-radio" role="radio" data-system-state="color" aria-checked="false">Настройка цвета</button>

@@ -23,7 +23,9 @@ function openColorDialog({value,anchor,onConfirm,title='Цвет',...options}){
   (options.host||$('#dialog')).append(mediaColorDialog);
   mediaColorDialog.classList.toggle('standalone-color-dialog',!!options.standalone);
   const colorFooter=mediaColorDialog.querySelector('footer');colorFooter.classList.add('color-dialog-footer');
-  if(options.standalone&&!(typeof isCurrentImplementation==='function'&&isCurrentImplementation()))mediaColorDialog.querySelector('.content').append(colorFooter);
+  const modern=!(typeof isCurrentImplementation==='function'&&isCurrentImplementation());
+  mediaColorDialog.classList.toggle('modern-color-dialog',modern);
+  if(modern)mediaColorDialog.querySelector('.content').append(colorFooter);
   else $('#media-color-palette-card').append(colorFooter);
   mediaColorDialog.classList.toggle('color-picker-only',!!options.pickerOnly);
   mediaColorDialog.classList.toggle('color-variable-dialog',!!options.variable);
