@@ -109,7 +109,7 @@ syncBackgroundNavigation=function(){
  syncAppearanceNavigation();applyBackgroundAppearance();
 };
 const renderAppearancePalette=renderBackgroundPalette;
-renderBackgroundPalette=function(...args){renderAppearancePalette(...args);applyBackgroundAppearance();};
+renderBackgroundPalette=function(...args){renderAppearancePalette(...args);syncBackgroundNavigation();};
 function refreshMediaNavigation(){
  const loadMenu=$('#media-load-menu'),wasOpen=!loadMenu.hidden,replacing=uploadAnchor?.id==='media-replace';
  if(wasOpen)loadMenu.hidden=true;

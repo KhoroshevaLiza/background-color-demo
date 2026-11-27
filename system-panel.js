@@ -28,8 +28,8 @@ systemPanel.innerHTML=`
   <div class="system-white system-functionality" aria-label="Функционал фона">
    <label><input type="checkbox" data-background-feature="photo" checked><span>Картинка</span></label>
    <label><input type="checkbox" data-background-feature="video" checked><span>Видео</span></label>
-   <label><input type="checkbox" data-background-feature="texture" checked><span>Текстура (для Цвет)</span></label>
-   <label><input type="checkbox" data-background-feature="effects" checked><span>Размытие (для Цвет)</span></label>
+   <label><input type="checkbox" data-background-feature="texture" checked><span>Текстура (для Цвет в Фон)</span></label>
+   <label><input type="checkbox" data-background-feature="effects" checked><span>Размытие (для Цвет в Фон)</span></label>
   </div>
   <div class="system-caption">Сценарии</div>
   <div class="system-white" role="radiogroup" aria-label="Сценарий фона">

@@ -1,4 +1,4 @@
-@font-face{font-family:MediaIcons;src:url('assets/cbuc-icons.ttf')}@font-face{font-family:MediaIcons24;src:url('assets/cbuc-icons24.ttf')}
+@font-face{font-family:MediaIcons;src:url('assets/media-icons.woff2') format('woff2')}@font-face{font-family:MediaIcons24;src:url('assets/media-icons24.woff2') format('woff2')}
 .media-glyph{font-family:MediaIcons;font-size:16px;font-weight:400;line-height:24px;display:block;color:#656c87}.media-glyph.large{font-family:MediaIcons24;font-size:24px}
 #media-screen[hidden],#media-load-menu[hidden],#media-finder[hidden],#media-crop-screen[hidden],#media-options-menu[hidden],#photo-layout-controls[hidden],#video-dummy-controls[hidden],#media-edit[hidden],#media-style-strength[hidden],#applied-media[hidden],.value-card[hidden],.icon[hidden]{display:none}
 #media-screen{display:flex;flex-direction:column;gap:4px;margin:0 4px 4px}
