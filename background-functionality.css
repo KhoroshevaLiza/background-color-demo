@@ -9,12 +9,12 @@
 #dialog #palette,#media-color-palette{padding-bottom:0}
 #dialog.main-appearance[data-footer-view=chips] #palette-screen{padding-bottom:12px}
 #media-color-palette-card{padding-bottom:12px}
-/* A complete effects card, with the same heading and removal control as media. */
+/* Compact color blur editor with its removal control after the numeric field. */
 #dialog>.content>#blur-controls{height:auto;display:flex;flex-direction:column;align-items:stretch;padding:8px 12px;gap:4px;color:#000}
 #dialog>.content>#blur-controls[hidden]{display:none}
 .color-effects-row{display:flex;align-items:center;gap:8px;height:24px;color:#8991a9}
 .color-effects-row>span{flex:none}
-#dialog #blur-remove{width:16px;height:24px;margin:0;display:grid;place-items:center}
+#dialog #blur-remove{width:10px;height:24px;margin:0;display:grid;place-items:center}
 #dialog #blur-remove img{width:10px;height:10px;transform:translateY(1px)}
 #media-effects>.media-property,#media-effects>#media-style-strength{margin-top:0}
 #media-effects>.media-effects-heading{margin-bottom:-4px}

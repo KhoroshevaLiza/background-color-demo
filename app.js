@@ -246,6 +246,8 @@ function renderApplied(){
 }
 function commit({fromPalette=false}={}){
   hideTooltip();
+  // An empty blur editor is temporary; only a blurred color retains the block.
+  if(draft.mode==='media'||draft.color===null||!(Number(draft.blur)>0)){draft.blur=0;draft.blurEnabled=false;}
   applied={...draft};
   if(applied.mode!=='media'&&!fromPalette)remember(applied);renderSaved();
   renderApplied();

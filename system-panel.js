@@ -29,7 +29,7 @@ systemPanel.innerHTML=`
    <label><input type="checkbox" data-background-feature="photo" checked><span>Картинка</span></label>
    <label><input type="checkbox" data-background-feature="video" checked><span>Видео</span></label>
    <label><input type="checkbox" data-background-feature="texture" checked><span>Текстура</span></label>
-   <label><input type="checkbox" data-background-feature="effects" checked><span>Эффекты (для Цвет)</span></label>
+   <label><input type="checkbox" data-background-feature="effects" checked><span>Размытие (для Цвет)</span></label>
   </div>
   <div class="system-caption">Сценарии</div>
   <div class="system-white" role="radiogroup" aria-label="Сценарий фона">

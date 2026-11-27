@@ -1,9 +1,8 @@
 /* Shared bottom navigation for the background editor. */
 // Keep blur in its own card below the palette actions.
 $('#palette-screen').after($('#blur-controls'));
-const colorEffectsHeading=document.createElement('div');colorEffectsHeading.className='media-effects-heading';colorEffectsHeading.innerHTML='<span>Эффекты</span>';
 const colorEffectsRow=document.createElement('div');colorEffectsRow.className='color-effects-row';
-colorEffectsRow.append(...$('#blur-controls').childNodes);colorEffectsHeading.append(colorEffectsRow.querySelector('#blur-remove'));$('#blur-controls').append(colorEffectsHeading,colorEffectsRow);
+colorEffectsRow.append(...$('#blur-controls').childNodes);$('#blur-controls').append(colorEffectsRow);
 const backgroundNavigation=document.createElement('nav');
 backgroundNavigation.id='background-navigation';backgroundNavigation.setAttribute('aria-label','Тип фона');
 $('#dialog').append(backgroundNavigation);
@@ -32,7 +31,7 @@ function syncBackgroundNavigation(){
       }
       if(action==='color'){retainWindowMedia();showColorSettings();return;}
       if(action==='blur'){$('#choose-blur').click();syncBackgroundNavigation();return;}
-      draft.media.effectsEnabled=true;renderMediaScreen('media');
+      patchMedia({effectsEnabled:true,style:draft.media.type==='video'?3:0,strength:50,styleColor:undefined,styleAlpha:100});
     };
     if(action==='effects')button.hidden=!!draft.media.effectsEnabled;
     backgroundNavigation.append(button);

@@ -9,7 +9,7 @@ syncBackgroundNavigation=function(){
  for(const button of document.querySelectorAll('[data-navigation=media]')){button.textContent=availableMediaLabel();button.hidden=!backgroundFeatures.photo&&!backgroundFeatures.video;}
  textureAction.hidden=media||!backgroundFeatures.texture;
  if(!media&&activeScreen==='palette'&&backgroundFeatures.effects&&!draft.blurEnabled){
-  const button=document.createElement('button');button.dataset.navigation='color-effects';button.textContent='Эффекты';
+  const button=document.createElement('button');button.dataset.navigation='color-effects';button.textContent='Размытие';
   button.onclick=()=>{$('#choose-blur').click();};paletteActions.append(button);
  }
  systemPanel.querySelector('[data-system-state=photo]').hidden=!backgroundFeatures.photo;
